@@ -42,9 +42,12 @@ export default function App() {
     }
   }, [theme]);
 
-  // Handle fake download automation to elevate user interaction fidelity
-  const startDownloadSimulation = (platform: 'win') => {
-    setActiveDownload(platform);
+  // 직접 다운로드
+  const startDownloadSimulation = (_platform: 'win') => {
+    window.open('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.6/1.0.6.exe', '_blank');
+    return;
+    // 아래는 사용 안 함
+    setActiveDownload(_platform);
     setDownloadStep('progress');
     setDownloadProgress(0);
 
@@ -469,7 +472,7 @@ export default function App() {
                       브라우저 다운로드 큐가 성공적으로 트리거되었습니다!
                     </span>
                     <a 
-                      href="/downloads/work-hate-nyang-windows.exe"
+                      href="https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.6/1.0.6.exe"
                       download
                       className="inline-flex items-center gap-1.5 mt-2.5 text-xs text-indigo-600 dark:text-indigo-450 hover:opacity-90 font-black underline decoration-dashed"
                     >
