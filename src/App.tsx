@@ -127,6 +127,9 @@ export default function App() {
 
 
 
+            {/* 누끼 따기 링크 */}
+            <a href="https://remove.bg" target="_blank" rel="noopener noreferrer" className="text-xs md:text-sm font-bold px-4 py-2 rounded-full border transition duration-200 text-stone-700 dark:text-stone-300 border-transparent hover:bg-indigo-50/60 dark:hover:bg-stone-800 hidden md:block">✂️ 누끼 따기</a>
+
             {/* Sticky Install Shortcut Button */}
             <button
               onClick={handleDirectDownload}
