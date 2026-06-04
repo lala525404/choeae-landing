@@ -229,7 +229,7 @@ export default function App() {
                     </span>
                     <span className="text-stone-300 dark:text-stone-800">|</span>
                     <span className="flex items-center gap-1.5">
-                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 완전한 평생 무료 · 무단 배포·수정 금지
+                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 무료 · 무단 배포·수정 금지
                     </span>
                   </div>
 
