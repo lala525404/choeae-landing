@@ -1,0 +1,6 @@
+{
+  "name": "최애를 풀어놨습니다",
+  "description": "일하기 싫을 때 옆에서 말 걸어주는 데스크탑 버디, 최애를 풀어놨다! 공식 배포 사이트",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Premium Soft App Shadows and Glowing Gradients */
+.shadow-subtle-sm {
+  box-shadow: 0 2px 8px -1px rgba(124, 58, 237, 0.04), 0 1px 3px 0 rgba(124, 58, 237, 0.02);
+}
+
+.shadow-subtle-lg {
+  box-shadow: 0 12px 30px -10px rgba(124, 58, 237, 0.08), 0 4px 12px -2px rgba(124, 58, 237, 0.04);
+}
+
+.shadow-subtle-xl {
+  box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.12), 0 8px 20px -6px rgba(124, 58, 237, 0.06);
+}
+
+/* Glowing active active border */
+.glowing-active-border {
+  position: relative;
+  background-clip: padding-box;
+}
+
+.glowing-active-border::after {
+  position: absolute;
+  content: '';
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  background: linear-gradient(135deg, #e0a7ff 0%, #aa8bfa 50%, #60c5fa 100%);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.95;
+}
+
+/* Custom interactive particles bounce */
+@keyframes cuteBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.05);
+  }
+}
+
+.cute-bounce {
+  animation: cuteBounce 3s ease-in-out infinite;
+}
+
+/* Custom modern interactive button feedback */
+.btn-neo-active {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-neo-active:hover {
+  transform: translateY(-1px);
+}
+.btn-neo-active:active {
+  transform: translateY(1px);
+}
+
