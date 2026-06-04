@@ -526,20 +526,13 @@ export default function App() {
               "야르~ 오늘도 고단한 하루, 마음만은 가벼운 퇴근 RUN이다냥!"
             </p>
             <span className="block text-[10px] text-stone-400 dark:text-stone-650 mt-1 uppercase font-mono font-bold">
-              WORK HATE COMPANION ADULT DIVISION © 2026. ALL RIGHTS CONFIRMED
+              © 2026 lala525404. All rights reserved. 본 소프트웨어 및 랜딩페이지의 무단 복제·수정·재배포·상업적 이용을 엄히 금합니다.
             </span>
           </div>
 
           {/* Quick interactive shortcut buttons */}
           <div className="md:col-span-8 flex flex-wrap justify-center md:justify-end gap-3">
-            <button
-              id="btn-footer-github"
-              onClick={() => alert('본 프로젝트는 공익을 수호하는 100% 오픈소스 가문입니다. 추후 공식 GitHub 레포지토리 주소로 교체 예정입니다.')}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-850 text-stone-800 dark:text-stone-200 border border-stone-200 dark:border-stone-800 rounded-xl text-xs font-bold shadow-sm cursor-pointer"
-            >
-              <Github className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300" />
-              <span>GitHub 기여하기</span>
-            </button>
+
 
             <button
               onClick={() => setActiveTab('updates')}
