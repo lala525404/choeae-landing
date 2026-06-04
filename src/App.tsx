@@ -42,12 +42,9 @@ export default function App() {
     }
   }, [theme]);
 
-  // 직접 다운로드
-  const startDownloadSimulation = (_platform: 'win') => {
-    window.open('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.6/1.0.6.exe', '_blank');
-    return;
-    // 아래는 사용 안 함
-    setActiveDownload(_platform);
+  // 모달 열고 확인 후 다운로드
+  const startDownloadSimulation = (platform: 'win') => {
+    setActiveDownload(platform);
     setDownloadStep('progress');
     setDownloadProgress(0);
 
@@ -501,7 +498,10 @@ export default function App() {
                   <div className="flex gap-2">
                     <button
                       id="btn-confirm-download-instructions"
-                      onClick={() => setActiveDownload(null)}
+                      onClick={() => {
+                        window.open('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.6/1.0.6.exe', '_blank');
+                        setActiveDownload(null);
+                      }}
                       className="flex-1 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-95 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-500/10 cursor-pointer"
                     >
                       방책 확인 완료 & 버디 데려가기! ⭐
