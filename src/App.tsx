@@ -221,15 +221,15 @@ export default function App() {
                   {/* Platform Badges */}
                   <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs text-stone-600 dark:text-stone-400 font-bold mb-8">
                     <span className="flex items-center gap-1.5">
-                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 초경량 설치 (-30MB 점유)
+                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 간편 설치 (설치 없이 바로 실행)
                     </span>
                     <span className="text-stone-300 dark:text-stone-800">|</span>
                     <span className="flex items-center gap-1.5">
-                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> CPU 점유 무소음 설계
+                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 서버 통신 없는 100% 로컬 작동
                     </span>
                     <span className="text-stone-300 dark:text-stone-800">|</span>
                     <span className="flex items-center gap-1.5">
-                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 완전한 평생 공용 무료
+                      <span className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-100 dark:border-purple-900 text-[10px]">✔</span> 완전한 평생 무료 · 무단 배포·수정 금지
                     </span>
                   </div>
 
