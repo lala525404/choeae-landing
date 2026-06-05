@@ -128,7 +128,7 @@ export default function App() {
 
 
             {/* 누끼 따기 링크 */}
-            <button onClick={() => { if(window.confirm('📸 커스텀 이미지 권장 규격\n\n• 크기: 200×200 ~ 300×300px\n• 형식: PNG (투명 배경 권장)\n• 용량: 5MB 이하\n\nremove.bg에서 배경 제거 후 사용하면 더 예뻐요!\n\n지금 바로 이동할까요?')) { window.open('https://remove.bg', '_blank'); } }} className="text-xs md:text-sm font-bold px-4 py-2 rounded-full border transition duration-200 text-stone-700 dark:text-stone-300 border-transparent hover:bg-indigo-50/60 dark:hover:bg-stone-800 hidden md:block cursor-pointer">✂️ 누끼 따기</button>
+            <button onClick={() => { if(window.confirm('📸 커스텀 이미지 권장 규격\n\n• 크기: 200×200 ~ 300×300px\n• 형식: PNG (투명 배경 권장)\n• 용량: 5MB 이하\n\nremove.bg에서 배경 제거 후 사용하면 더 예뻐요!\n\n지금 바로 이동할까요?')) { location.href('https://remove.bg', '_blank'); } }} className="text-xs md:text-sm font-bold px-4 py-2 rounded-full border transition duration-200 text-stone-700 dark:text-stone-300 border-transparent hover:bg-indigo-50/60 dark:hover:bg-stone-800 hidden md:block cursor-pointer">✂️ 누끼 따기</button>
 
             {/* Sticky Install Shortcut Button */}
             <button
@@ -502,7 +502,7 @@ export default function App() {
                     <button
                       id="btn-confirm-download-instructions"
                       onClick={() => {
-                        window.open('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7/1.0.7.exe', '_blank');
+                        location.href('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7/1.0.7.exe', '_blank');
                         setActiveDownload(null);
                       }}
                       className="flex-1 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-95 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-500/10 cursor-pointer"
