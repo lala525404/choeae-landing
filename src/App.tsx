@@ -164,7 +164,7 @@ export default function App() {
                   <div className="inline-flex items-center gap-2 bg-indigo-50/80 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/40 px-4 py-1.5 rounded-full shadow-subtle-sm mb-6">
                     <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" />
                     <span className="text-xs font-bold text-indigo-800 dark:text-indigo-300 tracking-tight">
-                      최신 빌드 v1.0.6 정식 배포 완료
+                      최신 빌드 v1.0.7 정식 배포 완료
                     </span>
                     <span className="text-[10px] bg-amber-100 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/30 px-2 py-0.5 rounded-full text-amber-700 dark:text-amber-400 font-extrabold select-none">
                       Free
@@ -314,7 +314,7 @@ export default function App() {
                     </div>
 
                     <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-stone-300 text-xs font-semibold">
-                      <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full shadow-subtle-sm">다운로드 바이너리 파일: v1.0.6 베타 공시 빌드</span>
+                      <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full shadow-subtle-sm">다운로드 바이너리 파일: v1.0.7 베타 공시 빌드</span>
                       <span className="hidden sm:inline">•</span>
                       <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full shadow-subtle-sm">스마트 스크린 가이드 완벽 제공</span>
                     </div>
@@ -438,7 +438,7 @@ export default function App() {
                   Windows (.exe) 설치 준비 완료냥!
                 </h4>
                 <p className="text-xs text-stone-550 dark:text-stone-400 mt-1 font-extrabold">
-                  work-hate-nyang-windows.exe (beta v1.0.6)
+                  work-hate-nyang-windows.exe (beta v1.0.7)
                 </p>
               </div>
 
