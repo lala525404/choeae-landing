@@ -501,10 +501,10 @@ export default function App() {
                   <div className="flex gap-2">
                     <button
                       id="btn-confirm-download-instructions"
-                      onClick={() => {
-                        location.href('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7/1.0.7.exe', '_blank');
-                        setActiveDownload(null);
-                      }}
+                     onClick={() => {
+  location.href = 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7/1.0.7.exe';
+  setActiveDownload(null);
+}}
                       className="flex-1 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-95 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-500/10 cursor-pointer"
                     >
                       방책 확인 완료 & 버디 데려가기! ⭐
