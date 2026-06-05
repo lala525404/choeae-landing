@@ -472,7 +472,7 @@ export default function App() {
                       브라우저 다운로드 큐가 성공적으로 트리거되었습니다!
                     </span>
                     <a 
-                      href="https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.6/1.0.6.exe"
+                      href="https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7/1.0.7.exe"
                       download
                       className="inline-flex items-center gap-1.5 mt-2.5 text-xs text-indigo-600 dark:text-indigo-450 hover:opacity-90 font-black underline decoration-dashed"
                     >
@@ -502,7 +502,7 @@ export default function App() {
                     <button
                       id="btn-confirm-download-instructions"
                       onClick={() => {
-                        window.open('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.6/1.0.6.exe', '_blank');
+                        window.open('https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7/1.0.7.exe', '_blank');
                         setActiveDownload(null);
                       }}
                       className="flex-1 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-95 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-500/10 cursor-pointer"
