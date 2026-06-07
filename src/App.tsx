@@ -220,7 +220,7 @@ export default function App() {
                       <ArrowRight className="w-5 h-5 text-purple-600 dark:text-purple-400 opacity-80 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     </button>
                     <button
-                      onClick={() => { location.href = 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.8-mac/choeae-app-1.0.0-arm64.dmg'; }}
+                      onClick={() => { location.href = 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.7_mac/-1.0.0-arm64.dmg'; }}
                       className="bg-white/40 dark:bg-stone-900/40 backdrop-blur-md border border-stone-200 dark:border-stone-800 hover:bg-white/60 dark:hover:bg-stone-900/60 text-stone-900 dark:text-white rounded-2xl px-12 py-5 text-sm font-extrabold tracking-wide shadow-subtle-lg flex items-center justify-center gap-2.5 transition btn-neo-active cursor-pointer"
                       style={{ boxShadow: '0 8px 32px 0 rgba(124, 58, 237, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2)' }}
                     >
