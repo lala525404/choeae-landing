@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Github, 
@@ -453,26 +453,85 @@ export default function App() {
                       <ShieldAlert className="w-4 h-4 text-amber-500" />
                       설치 시 주의경보 우회 안내 (베타 필수 가이드)
                     </span>
-                    <div className="bg-amber-50/50 dark:bg-amber-950/15 p-4 rounded-xl border border-amber-100 dark:border-amber-900/35 space-y-3 shadow-subtle-sm">
-                      <span className="block text-xs font-black text-stone-900 dark:text-stone-100">
-                        Windows SmartScreen 알림 - 2단계 해결법!
+
+                    <div className="bg-amber-50/50 dark:bg-amber-950/15 p-4 rounded-xl border border-amber-100 dark:border-amber-900/35 space-y-2 shadow-subtle-sm">
+                      <span className="block text-xs font-black text-stone-900 dark:text-stone-255">
+                        Windows SmartScreen 알림 발생 시:
                       </span>
-                      <div className="flex gap-3 items-stretch">
-                        <div className="flex-1 bg-white dark:bg-stone-800 rounded-xl p-3 border border-amber-100 dark:border-stone-700 text-center">
-                          <div className="text-[10px] font-black text-red-500 mb-1">STEP 1</div>
-                          <div className="text-[10px] text-stone-600 dark:text-stone-400 font-bold mb-2">파란 경고창이 뜨면</div>
-                          <div className="bg-blue-600 text-white text-[10px] font-black py-1.5 px-3 rounded-lg inline-block mb-1 ring-2 ring-red-400">추가 정보</div>
-                          <div className="text-[9px] text-red-500 font-black">&larr; 여기 클릭!</div>
-                        </div>
-                        <div className="flex items-center text-stone-400 font-black text-lg">&rarr;</div>
-                        <div className="flex-1 bg-white dark:bg-stone-800 rounded-xl p-3 border border-amber-100 dark:border-stone-700 text-center">
-                          <div className="text-[10px] font-black text-red-500 mb-1">STEP 2</div>
-                          <div className="text-[10px] text-stone-600 dark:text-stone-400 font-bold mb-2">실행 버튼 클릭!</div>
-                          <div className="bg-blue-600 text-white text-[10px] font-black py-1.5 px-3 rounded-lg inline-block mb-1 ring-2 ring-red-400">실행</div>
-                          <div className="text-[9px] text-red-500 font-black">&larr; 여기 클릭!</div>
-                        </div>
-                      </div>
-                      <p className="text-[10px] text-stone-500 dark:text-stone-400 leading-relaxed font-bold mt-2">
-                        데스크탑 펟 앱은 아직 Windows 공식 인증서가 없어요. 앱 자체는 완전히 안전하니 걱정 마세요! 설치 시 <strong>단 한 번만</strong> 필요한 과정이에요.
+                      <p className="text-[11px] text-stone-800 dark:text-stone-450 leading-relaxed font-bold">
+                        인증 기관 미확인에 따른 파란색 스마트스크린 창이 보일 경우, 창 내부의 <strong className="text-stone-900 dark:text-stone-100">[추가 정보]</strong> 링크를 클릭한 뒤 활성화되는 <strong className="text-purple-600">[실행]</strong> 버튼을 누르시면 정상적으로 로드됩니다.
                       </p>
                     </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      id="btn-confirm-download-instructions"
+                      onClick={() => {
+                        location.href = 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.8/1.0.8.exe';
+                        setActiveDownload(null);
+                      }}
+                      className="flex-1 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-95 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-500/10 cursor-pointer"
+                    >
+                      방책 확인 완료 & 버디 데려가기! ⭐
+                    </button>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* FOOTER */}
+      <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-12 border-t border-stone-200 dark:border-stone-850">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <div className="md:col-span-4 text-center md:text-left">
+            <span className="font-display font-black text-xl text-stone-900 dark:text-stone-50">
+              🐱 최애를 <span className="bg-gradient-to-r from-purple-500 via-[#7C3AED] to-indigo-500 bg-clip-text text-transparent">풀어놨습니다</span>
+            </span>
+            <p className="text-xs text-stone-600 dark:text-stone-450 mt-2 font-bold">
+              "야르~ 오늘도 고단한 하루, 마음만은 가벼운 퇴근 RUN이다냥!"
+            </p>
+            <span className="block text-[10px] text-stone-400 dark:text-stone-650 mt-1 uppercase font-mono font-bold">
+              © 2026 lala525404. All rights reserved.
+            </span>
+            {/* 법적 링크 */}
+            <div className="flex flex-wrap gap-3 mt-3">
+              <a href="/privacy.html" target="_blank" rel="noopener noreferrer" className="text-[11px] text-stone-400 hover:text-purple-500 font-bold transition-colors">개인정보처리방침</a>
+              <a href="/terms.html" target="_blank" rel="noopener noreferrer" className="text-[11px] text-stone-400 hover:text-purple-500 font-bold transition-colors">이용약관</a>
+              <a href="/about.html" target="_blank" rel="noopener noreferrer" className="text-[11px] text-stone-400 hover:text-purple-500 font-bold transition-colors">서비스 소개</a>
+              <a href="/faq.html" target="_blank" rel="noopener noreferrer" className="text-[11px] text-stone-400 hover:text-purple-500 font-bold transition-colors">FAQ</a>
+            </div>
+          </div>
+
+          <div className="md:col-span-8 flex flex-wrap justify-center md:justify-end gap-3">
+            <button
+              onClick={() => setActiveTab('updates')}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-850 text-stone-800 dark:text-stone-200 border border-stone-200 dark:border-stone-800 rounded-xl text-xs font-bold shadow-sm cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-purple-500" />
+              <span>오직 업데이트 내역</span>
+            </button>
+
+            <button
+              id="btn-footer-inquiry"
+              onClick={() => {
+                const mailtoUrl = `mailto:lala525.404@gmail.com?subject=[최애를 풀어놨다] 기획 피드백 문의&body=소중한 피드백을 적어주세요!`;
+                window.location.href = mailtoUrl;
+              }}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-95 text-white rounded-xl text-xs font-bold shadow-sm cursor-pointer"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>건의 및 문의하기</span>
+            </button>
+          </div>
+        </div>
+      </footer>
+      
+      <InteractiveBuddySimulator />
+    </div>
+  );
+}
+
