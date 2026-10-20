@@ -38,7 +38,7 @@
   --seg-on: #FFFFFF;
   --screen: #DADADE;
   --on-screen: #4B4B4B;
-  --shadow-toast: 0 4px 12px rgba(17, 17, 17, 0.08);
+  --toast-shadow: 0 4px 12px rgba(17, 17, 17, 0.08);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   color-scheme: light;
 }
@@ -60,7 +60,7 @@
   --seg-on: #3A3A3F;
   --screen: #050506;
   --on-screen: #8E8E93;
-  --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 
@@ -79,7 +79,7 @@
   --color-on-screen: var(--on-screen);
   --font-sans: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
   --font-logo: 'Ownglyph ParkDaHyun', 'Pretendard Variable', 'Malgun Gothic', sans-serif;
-  --shadow-toast: var(--shadow-toast);
+  --shadow-toast: var(--toast-shadow);
   --breakpoint-xs: 360px;
 }
 
@@ -98,6 +98,8 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   @media (min-width: 768px) {
