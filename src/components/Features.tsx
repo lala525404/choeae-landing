@@ -37,10 +37,10 @@ export function Features() {
               href="https://www.remove.bg"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="remove.bg 새 창에서 열기"
               className="link inline-flex min-h-11 items-center gap-1 self-start"
             >
               remove.bg에서 배경 지우기
+              <span className="sr-only">(새 창)</span>
               <ExternalLink size={16} strokeWidth={1.5} aria-hidden="true" />
             </a>
           </div>

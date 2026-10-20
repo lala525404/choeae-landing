@@ -45,9 +45,11 @@ export function Install() {
   const buttons = useRef<Record<Tab, HTMLButtonElement | null>>({windows: null, mac: null});
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
-    const next: Tab = tab === 'windows' ? 'mac' : 'windows';
+    let next: Tab = tab === 'windows' ? 'mac' : 'windows';
+    if (event.key === 'Home') next = 'windows';
+    if (event.key === 'End') next = 'mac';
     setTab(next);
     buttons.current[next]?.focus();
   };
@@ -75,23 +77,27 @@ export function Install() {
           ))}
         </div>
 
-        <div
-          role="tabpanel"
-          id={`install-panel-${tab}`}
-          aria-labelledby={`install-tab-${tab}`}
-          className="flex flex-col gap-4"
-        >
-          {tab === 'mac' && (
-            <p className="font-semibold">Apple Silicon(M1 이후) 전용이에요. 인텔 맥은 아직 지원하지 않아요.</p>
-          )}
-          <Steps steps={tab === 'windows' ? WINDOWS_STEPS : MAC_STEPS} />
-          {/* macOS가 Windows보다 늦는 동안만 쓰는 안내. 두 버전이 같아지면 지운다. */}
-          {tab === 'mac' && (
-            <p className="t-caption">
-              macOS용 v{DOWNLOADS.windows.version}는 준비 중이에요. 당분간 v{DOWNLOADS.mac.version}을 써 주세요.
-            </p>
-          )}
-        </div>
+        {TABS.map(({id}) => (
+          <div
+            key={id}
+            role="tabpanel"
+            id={`install-panel-${id}`}
+            aria-labelledby={`install-tab-${id}`}
+            hidden={tab !== id}
+            className="flex flex-col gap-4"
+          >
+            {id === 'mac' && (
+              <p className="font-semibold">Apple Silicon(M1 이후) 전용이에요. 인텔 맥은 아직 지원하지 않아요.</p>
+            )}
+            <Steps steps={id === 'windows' ? WINDOWS_STEPS : MAC_STEPS} />
+            {/* macOS가 Windows보다 늦는 동안만 쓰는 안내. 두 버전이 같아지면 지운다. */}
+            {id === 'mac' && (
+              <p className="t-caption">
+                macOS용 v{DOWNLOADS.windows.version}는 준비 중이에요. 당분간 v{DOWNLOADS.mac.version}을 써 주세요.
+              </p>
+            )}
+          </div>
+        ))}
       </div>
     </Section>
   );

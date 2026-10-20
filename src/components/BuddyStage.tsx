@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useLayoutEffect, useRef, useState} from 'react';
 import {DEMO_BUDDY, twemojiSrc} from '../constants';
 import {useReducedMotion} from '../hooks/useReducedMotion';
 
@@ -18,7 +18,8 @@ export function BuddyStage() {
   const bobRef = useRef<HTMLSpanElement>(null);
   const [jumping, setJumping] = useState(false);
 
-  useEffect(() => {
+  // 첫 화면이 그려지기 전에 위치를 잡아 왼쪽 끝에서 깜빡이지 않게 한다.
+  useLayoutEffect(() => {
     const stage = stageRef.current;
     const mover = moverRef.current;
     const flip = flipRef.current;
@@ -113,7 +114,7 @@ export function BuddyStage() {
     >
       <div
         role="img"
-        aria-label="고양이 버디가 화면 위를 천천히 왔다 갔다 걷는 모습"
+        aria-label={reduced ? '가만히 서 있는 고양이 버디' : '고양이 버디가 화면 위를 천천히 왔다 갔다 걷는 모습'}
         className="absolute inset-0"
       />
       <div
@@ -124,8 +125,9 @@ export function BuddyStage() {
         <button
           type="button"
           aria-label="버디 누르기. 폴짝 뛰어요"
+          disabled={reduced}
           className={`block rounded-[16px] border-0 bg-transparent p-0 ${jumping ? 'buddy-jump' : ''}`}
-          onClick={() => !reduced && setJumping(true)}
+          onClick={() => setJumping(true)}
           onAnimationEnd={() => setJumping(false)}
         >
           <span ref={flipRef} className="block">

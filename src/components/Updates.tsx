@@ -49,7 +49,9 @@ export function Updates() {
         </p>
         <div>
           <ol className="border-b border-line">{shown.map(renderNote)}</ol>
-          {expanded && <ol id={FOLDED_LIST_ID}>{folded.map(renderNote)}</ol>}
+          <ol id={FOLDED_LIST_ID} hidden={!expanded}>
+            {folded.map(renderNote)}
+          </ol>
         </div>
         <button
           type="button"
