@@ -61,7 +61,7 @@ export function Features() {
                   src={twemojiSrc(buddy.code)}
                   width={64}
                   height={64}
-                  alt={`${buddy.name} 버디`}
+                  alt=""
                   loading="lazy"
                   decoding="async"
                   className="size-12 md:size-14"

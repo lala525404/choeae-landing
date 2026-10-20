@@ -84,6 +84,7 @@ export function Install() {
             id={`install-panel-${id}`}
             aria-labelledby={`install-tab-${id}`}
             hidden={tab !== id}
+            tabIndex={0}
             className="flex flex-col gap-4"
           >
             {id === 'mac' && (

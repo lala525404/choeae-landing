@@ -47,8 +47,8 @@ export function Updates() {
         <p className="t-caption">
           Windows는 v{DOWNLOADS.windows.version}, macOS는 v{DOWNLOADS.mac.version}까지 받을 수 있어요.
         </p>
-        <div>
-          <ol className="border-b border-line">{shown.map(renderNote)}</ol>
+        <div className="border-b border-line">
+          <ol>{shown.map(renderNote)}</ol>
           <ol id={FOLDED_LIST_ID} hidden={!expanded}>
             {folded.map(renderNote)}
           </ol>

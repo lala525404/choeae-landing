@@ -1,11 +1,13 @@
 import {Check} from 'lucide-react';
 import {PRODUCT_NAME} from '../constants';
+import {useReducedMotion} from '../hooks/useReducedMotion';
 import {BuddyStage} from './BuddyStage';
 import {DownloadButtons} from './DownloadButtons';
 
 const TRUST_LINES = ['앱 안에는 광고가 없어요.', '내 사진과 설정은 내 컴퓨터에만 저장돼요.'];
 
 export function Hero() {
+  const reduced = useReducedMotion();
   return (
     <section className="pb-9 pt-9 md:pt-12 lg:pb-[60px] lg:pt-[72px]">
       <div className="mx-auto grid max-w-[1120px] gap-8 px-5 md:px-8 lg:grid-cols-12 lg:items-center lg:gap-6">
@@ -31,7 +33,7 @@ export function Hero() {
           <div className="panel p-2">
             <BuddyStage />
           </div>
-          <figcaption className="t-caption px-1">버디를 눌러 보세요.</figcaption>
+          {!reduced && <figcaption className="t-caption px-1">버디를 눌러 보세요.</figcaption>}
         </figure>
       </div>
     </section>

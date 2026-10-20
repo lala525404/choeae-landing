@@ -37,7 +37,7 @@ export function Header() {
         <a
           href="#top"
           aria-label={`${PRODUCT_NAME} 처음으로`}
-          className="whitespace-nowrap font-logo text-[20px] leading-none text-ink"
+          className="inline-flex min-h-11 items-center whitespace-nowrap font-logo text-[20px] leading-none text-ink"
         >
           {PRODUCT_NAME}
         </a>
