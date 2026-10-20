@@ -3,62 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>개인정보처리방침 | 최애를 풀어놨다 - 데스크탑 버디 앱</title>
-  <meta name="description" content="최애를 풀어놨다 앱의 개인정보처리방침입니다. 수집 정보, 쿠키, 광고 정책 등을 안내합니다." />
-  <link rel="canonical" href="https://choeae-landing.vercel.app/privacy.html" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #fdf4ff; color: #334155; line-height: 1.8; }
-    header { background: #fff; border-bottom: 1px solid #e9d5ff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
-    .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 18px; color: #7c3aed; text-decoration: none; }
-    .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #7c3aed, #ec4899); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; }
-    .back-btn { background: #f3e8ff; border: none; padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 700; color: #7c3aed; cursor: pointer; text-decoration: none; }
-    .back-btn:hover { background: #e9d5ff; }
-    main { max-width: 800px; margin: 48px auto; padding: 0 24px 80px; }
-    .page-title { font-size: 32px; font-weight: 900; color: #3b0764; margin-bottom: 8px; }
-    .page-subtitle { font-size: 14px; color: #94a3b8; margin-bottom: 48px; }
-    .section { background: #fff; border-radius: 24px; padding: 40px; margin-bottom: 24px; border: 1px solid #f3e8ff; box-shadow: 0 1px 4px rgba(124,58,237,0.06); }
-    h2 { font-size: 18px; font-weight: 800; color: #3b0764; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    h2::before { content: ''; width: 4px; height: 20px; background: linear-gradient(135deg, #7c3aed, #ec4899); border-radius: 4px; display: inline-block; flex-shrink: 0; }
-    p { font-size: 15px; color: #475569; margin-bottom: 12px; }
-    ul { padding-left: 20px; margin-bottom: 12px; }
-    li { font-size: 15px; color: #475569; margin-bottom: 8px; }
-    .highlight-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 20px 24px; margin-bottom: 12px; }
-    .highlight-box p { color: #166534; margin: 0; font-weight: 600; }
-    footer-note { display: block; text-align: center; color: #94a3b8; font-size: 13px; margin-top: 48px; }
-  </style>
+  <script src="/static-theme.js"></script>
+  <title>개인정보처리방침 | 최애를 풀어놨습니다</title>
+  <meta name="description" content="최애를 풀어놨습니다 앱과 사이트의 개인정보처리방침이에요. 수집하는 정보, Google Analytics 쿠키와 거부 방법, 앱 데이터 저장 방식을 안내해요." />
+  <!-- 사이트 주소는 빌드 때 VITE_SITE_URL로 채운다(vite-plugins/site-url.ts). 비어 있으면 이 태그는 빠진다. -->
+  <link rel="canonical" href="%SITE_URL%/privacy.html" data-needs-site-url />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/static.css" />
 </head>
 <body>
-  <header>
-    <a href="/" class="logo">
-      <div class="logo-icon">🐾</div>
-      최애를 풀어놨다
-    </a>
-    <a href="/" class="back-btn">← 홈으로 돌아가기</a>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="logo">최애를 풀어놨습니다</a>
+      <a href="/" class="btn">처음으로</a>
+    </div>
   </header>
 
   <main>
     <h1 class="page-title">개인정보처리방침</h1>
-    <p class="page-subtitle">최종 수정일: 2025년 1월 1일 &nbsp;|&nbsp; 시행일: 2025년 1월 1일</p>
+    <p class="page-meta">최종 수정일: 2026년 10월 20일 <!-- TODO(확인 필요): 시행일은 직접 정해서 적는다. --></p>
+    <div class="doc">
+      <section>
+        <h2>수집하는 정보</h2>
+        <p>최애를 풀어놨습니다(이하 "서비스")는 사이트 운영과 개선을 위해 아래 정보를 수집해요.</p>
+        <ul>
+          <li><strong>방문 통계:</strong> 방문한 페이지, 머문 시간, 브라우저 종류, 운영체제, 기기 종류, 접속 지역(국가·도시 수준), 접속 경로를 Google Analytics로 수집해요. 이름이나 이메일처럼 개인을 직접 알아볼 수 있는 정보는 수집하지 않아요.</li>
+          <li><strong>앱 다운로드:</strong> 다운로드 버튼을 누르면 GitHub Releases에서 파일을 받아요. 이 다운로드에는 GitHub의 개인정보처리방침이 적용돼요.</li>
+        </ul>
+      </section>
 
-    <div class="section">
-      <h2>수집하는 정보</h2>
-      <p>최애를 풀어놨다(이하 "서비스")는 서비스 운영 및 개선을 위해 다음과 같은 정보를 수집할 수 있습니다.</p>
-      <ul>
-        <li><strong>자동 수집 정보:</strong> 방문 페이지, 체류 시간, 브라우저 종류, 운영체제, 접속 국가 (Google Analytics를 통해 익명으로 수집)</li>
-        <li><strong>앱 다운로드 정보:</strong> 다운로드 버튼 클릭 시 GitHub Releases 페이지로 이동하며, 해당 다운로드는 GitHub의 개인정보처리방침을 따릅니다.</li>
+      <section>
+        <h2>앱 안의 데이터</h2>
+        <!-- 확인함: 앱 v1.0.9 main.cjs에는 외부 서버로 보내는 통신 코드가 없다. 앱 코드가 바뀌면 이 문장도 다시 확인한다. -->
+        <p>앱 안에는 광고가 없어요. 앱에서 정한 설정값과 올린 사진은 내 컴퓨터에만 저장돼요. 개발자가 따로 받아 보지 않아요.</p>
+        <p class="note">예: 버디 종류, 모드, 크기, 활동 구역, 알림 시각, 올린 사진이 여기에 해당해요.</p>
+      </section>
+
+      <!-- [AdSense 문구 보관: 도메인 연결 후 AdSense를 다시 쓸 때 복구. 2026-10-20 본문에서 제외]
+
+(1) "수집하는 정보" 목록의 항목
         <li><strong>광고 관련 데이터:</strong> Google AdSense를 통한 맞춤형 광고 제공을 위해 쿠키가 사용될 수 있습니다.</li>
-      </ul>
-    </div>
 
-    <div class="section">
-      <h2>앱 내 데이터 처리</h2>
-      <div class="highlight-box">
-        <p>✅ 최애를 풀어놨다 데스크탑 앱은 사용자의 캐릭터 설정, 모드 설정 등 모든 데이터를 사용자의 기기(로컬)에만 저장합니다. 외부 서버로 전송되지 않습니다.</p>
-      </div>
-      <p>앱 내에서 설정한 버디 이름, 활동 시간, 모드(Chill/Buddy/Chaos) 등의 설정값은 모두 사용자 컴퓨터의 로컬 스토리지에 저장되며, 개발자 또는 제3자가 접근할 수 없습니다.</p>
-    </div>
-
+(2) 별도 섹션 전체
     <div class="section">
       <h2>Google AdSense 및 광고 쿠키</h2>
       <p>본 랜딩페이지는 Google AdSense를 통해 광고를 게재합니다. Google은 광고 쿠키를 사용하여 사용자의 이전 방문 기록을 기반으로 맞춤 광고를 표시할 수 있습니다.</p>
@@ -68,28 +54,55 @@
       </ul>
     </div>
 
-    <div class="section">
-      <h2>Google Analytics</h2>
-      <p>본 서비스는 Google Analytics를 이용하여 랜딩페이지 방문 현황을 분석합니다. 수집된 데이터는 개인을 식별하지 않으며 서비스 개선에만 활용됩니다.</p>
-    </div>
+(3) meta description 원문
+  <meta name="description" content="최애를 풀어놨다 앱의 개인정보처리방침입니다. 수집 정보, 쿠키, 광고 정책 등을 안내합니다." />
+-->
 
-    <div class="section">
-      <h2>제3자 서비스</h2>
-      <p>본 서비스는 다음 외부 서비스와 연동됩니다.</p>
-      <ul>
-        <li><strong>GitHub Releases:</strong> 앱 다운로드 파일 배포</li>
-        <li><strong>Buy Me a Coffee:</strong> 개발자 후원 서비스</li>
-      </ul>
-      <p>이들 외부 서비스에서의 개인정보 처리는 해당 서비스의 개인정보처리방침을 따릅니다.</p>
-    </div>
+      <section>
+        <h2>Google Analytics</h2>
+        <p>이 사이트는 방문 현황을 파악하려고 Google LLC의 웹 분석 서비스인 Google Analytics를 써요. Google Analytics는 쿠키를 사용해 방문자가 사이트를 어떻게 쓰는지에 대한 통계 정보를 모아요.</p>
+        <ul>
+          <li><strong>수집하는 것:</strong> 방문 페이지, 머문 시간, 브라우저·운영체제·기기 종류, 대략적인 접속 지역, 접속 경로 같은 이용 통계예요.</li>
+          <li><strong>쓰는 곳:</strong> 어떤 내용이 도움이 되는지 살펴 사이트를 고치는 데만 써요.</li>
+          <li><strong>보관과 처리:</strong> 수집된 정보는 Google이 정한 기간과 방식에 따라 Google 서버에서 처리돼요. 자세한 내용은 <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google이 데이터를 사용하는 방식</a>을 확인해 주세요.</li>
+          <li><strong>거부하는 방법:</strong> 아래 방법 중 하나를 쓰면 통계 수집을 막을 수 있어요. 막아도 사이트와 앱은 똑같이 쓸 수 있어요.
+            <ul>
+              <li>브라우저 설정에서 쿠키를 차단하거나 삭제해요.</li>
+              <li><a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics 차단 브라우저 부가기능</a>을 설치해요.</li>
+            </ul>
+          </li>
+        </ul>
+        <!-- TODO(확인 필요): GA4의 "개인 식별 정보 미수집"과 쿠키 사용은 일반적인 GA 안내 수준으로 썼다. Google signals(광고 개인 최적화)를 켜 두었는지 GA 설정 확인. -->
+      </section>
 
-    <div class="section">
-      <h2>문의</h2>
-      <p>개인정보 처리에 관한 문의사항이 있으시면 아래로 연락주세요.</p>
-      <p><strong>이메일:</strong> <a href="mailto:lala525.404@gmail.com" style="color:#7c3aed;">lala525.404@gmail.com</a></p>
-    </div>
+      <section>
+        <h2>제3자 서비스</h2>
+        <p>서비스는 다음 외부 서비스와 연동돼요.</p>
+        <ul>
+          <li><strong>GitHub Releases:</strong> 앱 다운로드 파일 배포</li>
+          <!-- TODO(확인 필요): 현재 랜딩 어디에도 Buy Me a Coffee 링크가 없다. 쓰지 않으면 이 항목을 지운다. 호스팅(Vercel) 방문 기록 처리 안내를 추가할지도 확인. -->
+          <li><strong>Buy Me a Coffee:</strong> 개발자 후원 서비스</li>
+        </ul>
+        <p>이들 외부 서비스에서의 개인정보 처리는 해당 서비스의 개인정보처리방침을 따라요.</p>
+      </section>
 
-    <footer-note>© 2025 최애를 풀어놨다. All rights reserved.</footer-note>
+      <section>
+        <h2>문의</h2>
+        <p>개인정보 처리에 관한 문의가 있으면 아래로 연락해 주세요.</p>
+        <p><strong>이메일:</strong> <a href="mailto:lala525.404@gmail.com">lala525.404@gmail.com</a></p>
+      </section>
+    </div>
   </main>
+
+  <footer class="site-footer">
+    <nav aria-label="사이트 정보">
+      <a href="/privacy.html">개인정보처리방침</a>
+      <a href="/terms.html">이용약관</a>
+      <a href="/about.html">서비스 소개</a>
+      <a href="/faq.html">FAQ</a>
+    </nav>
+    <!-- TODO(확인 필요): 저작권자 표기 확정 필요(사이트는 lala525404, 이용약관은 Lara Park). 지금은 제품명으로 둔다. -->
+    <p>© 2026 최애를 풀어놨습니다</p>
+  </footer>
 </body>
 </html>
