@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <!-- TODO(AdSense): 도메인 연결 후 이 자리(<head> 맨 위, gtag 위)에 AdSense 스크립트를 다시 넣는다.
          client=ca-pub-4663811683108454 / src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js (async, crossorigin="anonymous") -->
@@ -12,14 +12,53 @@
 
   gtag('config', 'G-P42C9C1EQ0');
 </script>
+    <script>
+      // 깜빡임 방지: 렌더 전에 화면 테마(light/dark)를 정한다. 선택값은 localStorage "choeae-theme"(light/dark/system).
+      (function () {
+        var KEY = 'choeae-theme';
+        var root = document.documentElement;
+        var query = window.matchMedia('(prefers-color-scheme: dark)');
+        function saved() {
+          try {
+            var value = localStorage.getItem(KEY);
+            return value === 'light' || value === 'dark' ? value : 'system';
+          } catch (e) {
+            return 'system';
+          }
+        }
+        function apply() {
+          var pref = saved();
+          root.dataset.theme = pref === 'system' ? (query.matches ? 'dark' : 'light') : pref;
+        }
+        apply();
+        query.addEventListener('change', function () {
+          if (saved() === 'system') apply();
+        });
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>최애를 풀어놨다! (데스크탑 버디)</title>
+    <link rel="preload" href="/fonts/PretendardVariable-subset.woff2" as="font" type="font/woff2" crossorigin />
+    <title>최애를 풀어놨습니다 | 내 화면 위를 돌아다니는 데스크탑 버디</title>
+    <meta name="description" content="좋아하는 사진을 내 화면 위를 돌아다니는 버디로 풀어놓아요. 퇴근 알림도 챙겨 주는 데스크탑 앱이에요. Windows와 macOS(Apple Silicon)에서 쓰고, 앱 안에는 광고가 없어요." />
+    <!-- 사이트 주소가 필요한 태그는 data-needs-site-url을 붙인다. VITE_SITE_URL이 비면 빌드 때 통째로 빠진다. -->
+    <link rel="canonical" href="%SITE_URL%/" data-needs-site-url />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="최애를 풀어놨습니다" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:title" content="최애를 풀어놨습니다" />
+    <meta property="og:description" content="최애·반려동물 사진이 내 화면 위를 돌아다니는 데스크탑 버디 앱. 퇴근 알림도 챙겨 줘요." />
+    <meta property="og:url" content="%SITE_URL%/" data-needs-site-url />
+    <meta property="og:image" content="%SITE_URL%/og.png" data-needs-site-url />
+    <meta property="og:image:width" content="1200" data-needs-site-url />
+    <meta property="og:image:height" content="630" data-needs-site-url />
+    <meta property="og:image:alt" content="최애를 풀어놨습니다 앱 소개 이미지" data-needs-site-url />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="%SITE_URL%/og.png" data-needs-site-url />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
