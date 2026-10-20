@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {DOWNLOADS} from '../src/constants';
 import {loadEnv, type Plugin, type ResolvedConfig} from 'vite';
 
 /**
@@ -11,12 +12,15 @@ import {loadEnv, type Plugin, type ResolvedConfig} from 'vite';
  * - dist에 실제로 있는 페이지만 담아 sitemap.xml과 robots.txt를 만든다. 주소가 없으면 sitemap은 만들지 않는다.
  */
 const TOKEN = '%SITE_URL%';
+const escapeXml = (value: string) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+
 const NEEDS_ATTR = 'data-needs-site-url';
 
 function normalize(raw: string | undefined, warn: (message: string) => void): string {
   const value = (raw ?? '').trim().replace(/\/+$/, '');
   if (!value) return '';
-  if (!/^https?:\/\/[^\s]+$/.test(value)) {
+  if (!/^https?:\/\/[^\s"'<>&]+$/.test(value)) {
     warn(`VITE_SITE_URL 값이 http(s)로 시작하는 주소가 아니라서 무시해요: ${value}`);
     return '';
   }
@@ -30,6 +34,15 @@ export function applySiteUrl(html: string, siteUrl: string): string {
   return html
     .split(TOKEN).join(siteUrl)
     .replace(new RegExp(String.raw`\s+${NEEDS_ATTR}(?=[\s/>])`, 'g'), '');
+}
+
+/** noscript 요약 안의 다운로드 주소·버전도 src/constants.ts의 DOWNLOADS 한 곳에서 가져온다. */
+function applyDownloads(html: string): string {
+  return html
+    .split('%DL_WINDOWS_URL%').join(DOWNLOADS.windows.url)
+    .split('%DL_WINDOWS_VERSION%').join(DOWNLOADS.windows.version)
+    .split('%DL_MAC_URL%').join(DOWNLOADS.mac.url)
+    .split('%DL_MAC_VERSION%').join(DOWNLOADS.mac.version);
 }
 
 export function siteUrlPlugin(): Plugin {
@@ -50,7 +63,7 @@ export function siteUrlPlugin(): Plugin {
     },
     transformIndexHtml: {
       order: 'pre',
-      handler: (html) => applySiteUrl(html, siteUrl),
+      handler: (html) => applyDownloads(applySiteUrl(html, siteUrl)),
     },
     closeBundle: {
       order: 'post',
@@ -72,7 +85,7 @@ export function siteUrlPlugin(): Plugin {
           const sitemap = [
             '<?xml version="1.0" encoding="UTF-8"?>',
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-            ...urls.map((url) => `  <url><loc>${url}</loc></url>`),
+            ...urls.map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`),
             '</urlset>',
             '',
           ].join('\n');
