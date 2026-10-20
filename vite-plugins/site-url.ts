@@ -29,7 +29,7 @@ export function applySiteUrl(html: string, siteUrl: string): string {
   }
   return html
     .split(TOKEN).join(siteUrl)
-    .replace(new RegExp(`\s+${NEEDS_ATTR}(?=[\s/>])`, 'g'), '');
+    .replace(new RegExp(String.raw`\s+${NEEDS_ATTR}(?=[\s/>])`, 'g'), '');
 }
 
 export function siteUrlPlugin(): Plugin {
