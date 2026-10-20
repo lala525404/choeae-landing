@@ -4,6 +4,9 @@ import {Section} from './Section';
 const HOME_ALT =
   '최애를 풀어놨습니다 설정창 홈 화면. 오른쪽에 버디 미리보기, 왼쪽에 모드·크기·활동 구역 같은 설정 칩, 아래에 점심 알림과 퇴근 알림 카드가 있어요.';
 
+/** 테마를 바꾸면 반대쪽 캡처가 보이므로 버튼을 누를 때 미리 받아 둔다. */
+export const HOME_SHOTS = ['/screens/home-light.webp', '/screens/home-dark.webp'] as const;
+
 export function AppScreens() {
   return (
     <Section

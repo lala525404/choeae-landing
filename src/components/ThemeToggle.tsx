@@ -1,5 +1,7 @@
 import {Monitor, Moon, Sun} from 'lucide-react';
 import {THEME_LABEL, useTheme} from '../hooks/useTheme';
+import {preloadImages} from '../lib/preload';
+import {HOME_SHOTS} from './AppScreens';
 
 const ICONS = {light: Sun, dark: Moon, system: Monitor};
 
@@ -10,7 +12,10 @@ export function ThemeToggle() {
   const label = `화면 테마: ${THEME_LABEL[pref]}. 누르면 ${THEME_LABEL[next]}${next === 'system' ? '으로' : '로'} 바뀌어요`;
 
   return (
-    <button type="button" className="icon-btn" onClick={cycle} aria-label={label} title={label}>
+    <button type="button" className="icon-btn" onClick={() => {
+        preloadImages(HOME_SHOTS);
+        cycle();
+      }} aria-label={label} title={label}>
       <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
     </button>
   );

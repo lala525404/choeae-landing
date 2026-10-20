@@ -2,6 +2,7 @@ import {Bell} from 'lucide-react';
 import {useEffect, useRef, useState, type CSSProperties} from 'react';
 import {DEMO_BUDDY, LEAVE_EMOJI_CODES, twemojiSrc} from '../constants';
 import {useReducedMotion} from '../hooks/useReducedMotion';
+import {preloadImages} from '../lib/preload';
 import {Section} from './Section';
 
 const TOTAL_MS = 2600;
@@ -68,6 +69,22 @@ export function LeaveDemo() {
   const [run, setRun] = useState<Run | null>(null);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  // 섹션 가까이 오면 이모지 이미지를 미리 받아 첫 재생이 끊기지 않게 한다.
+  useEffect(() => {
+    const area = areaRef.current;
+    if (!area) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        preloadImages([...LEAVE_EMOJI_CODES, DEMO_BUDDY.code].map(twemojiSrc));
+        observer.disconnect();
+      },
+      {rootMargin: '600px 0px'},
+    );
+    observer.observe(area);
+    return () => observer.disconnect();
+  }, []);
 
   const play = () => {
     const area = areaRef.current;
