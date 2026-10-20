@@ -85,11 +85,10 @@ export function Install() {
             <p className="font-semibold">Apple Silicon(M1 이후) 전용이에요. 인텔 맥은 아직 지원하지 않아요.</p>
           )}
           <Steps steps={tab === 'windows' ? WINDOWS_STEPS : MAC_STEPS} />
-          {/* 버전이 바뀌면 이 문장도 DOWNLOADS와 맞춰 고친다 */}
+          {/* macOS가 Windows보다 늦는 동안만 쓰는 안내. 두 버전이 같아지면 지운다. */}
           {tab === 'mac' && (
             <p className="t-caption">
-              현재 macOS 최신 파일은 v{DOWNLOADS.mac.version}이에요. Windows(v{DOWNLOADS.windows.version})보다 한 버전
-              늦어요.
+              macOS용 v{DOWNLOADS.windows.version}는 준비 중이에요. 당분간 v{DOWNLOADS.mac.version}을 써 주세요.
             </p>
           )}
         </div>

@@ -37,12 +37,15 @@ export interface ReleaseGroup {
 
 export interface ReleaseNote {
   version: string;
-  date: string;
+  /** 릴리스 원문에 날짜가 있는 버전만 적는다 */
+  date?: string;
   title?: string;
   latest?: boolean;
   /** true면 "이전 버전 더 보기"를 누르기 전까지 접어 둔다 */
   folded?: boolean;
   groups: ReleaseGroup[];
+  /** 항목 아래에 보조색으로 붙이는 안내 */
+  note?: string;
 }
 
 export interface FAQItem {

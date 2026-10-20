@@ -18,7 +18,7 @@ export function Updates() {
             <span className="rounded-full bg-track px-2 py-0.5 text-[12px] font-semibold leading-snug">최신</span>
           )}
         </div>
-        <p className="t-caption num">{note.date}</p>
+        {note.date && <p className="t-caption num">{note.date}</p>}
       </div>
       <div className="flex flex-col gap-4">
         {note.title && <p className="font-semibold">{note.title}</p>}
@@ -32,6 +32,7 @@ export function Updates() {
             </ul>
           </div>
         ))}
+        {note.note && <p className="t-caption">{note.note}</p>}
       </div>
     </li>
   );
