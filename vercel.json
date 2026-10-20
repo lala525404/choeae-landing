@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/choeae-about.html", "destination": "/about.html", "statusCode": 301 },
+    { "source": "/choeae-faq.html", "destination": "/faq.html", "statusCode": 301 },
+    { "source": "/choeae-privacy.html", "destination": "/privacy.html", "statusCode": 301 },
+    { "source": "/choeae-terms.html", "destination": "/terms.html", "statusCode": 301 }
+  ]
+}
