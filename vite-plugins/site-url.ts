@@ -64,7 +64,14 @@ export function siteUrlPlugin(): Plugin {
     configResolved(resolved) {
       config = resolved;
       const env = loadEnv(resolved.mode, resolved.envDir, 'VITE_');
-      siteUrl = normalize(env.VITE_SITE_URL, (message) => resolved.logger.warn(`[site-url] ${message}`));
+      const warn = (message: string) => resolved.logger.warn(`[site-url] ${message}`);
+      siteUrl = normalize(env.VITE_SITE_URL, warn);
+      // VITE_SITE_URL이 비어 있거나 형식이 틀렸을 때, Vercel 운영 배포에서만 Vercel이 알려 주는 운영 도메인으로 대신한다.
+      // (도메인을 코드에 적지 않는다. 값이 있으면 항상 VITE_SITE_URL이 우선이고, 미리보기 배포에는 쓰지 않는다.)
+      if (!siteUrl && process.env.VERCEL_ENV === 'production' && process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+        siteUrl = normalize(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`, warn);
+        if (siteUrl) warn(`VITE_SITE_URL이 비어 있어서 Vercel 운영 도메인을 대신 써요: ${siteUrl} (Vercel 환경변수 VITE_SITE_URL을 확인해 주세요)`);
+      }
       if (!siteUrl) {
         resolved.logger.warn(
           '[site-url] VITE_SITE_URL이 비어 있어요. canonical, og:url, og:image, sitemap.xml은 만들지 않아요.',

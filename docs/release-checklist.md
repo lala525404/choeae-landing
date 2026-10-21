@@ -40,7 +40,9 @@
 ## 4. 운영 배포 확인 (`https://choeae-landing.vercel.app`)
 - [ ] `/`가 200이고 새 버전 라벨, 새 업데이트 항목이 보여요.
 - [ ] `<meta name="robots" content="noindex…">`가 **없어요**(운영). canonical이 운영 주소예요.
-- [ ] `/robots.txt`에 `Allow: /`, `Sitemap:` 줄. `/sitemap.xml`이 열려요.
+- [ ] `/robots.txt`에 `Allow: /`, `Sitemap:` 줄. `/sitemap.xml`이 열려요(404면 아래 참고).
+  - canonical·og:image가 비고 sitemap이 404면 Vercel 빌드가 `VITE_SITE_URL`을 못 읽은 거예요. Vercel → Settings → Environment Variables에서 이름이 정확히 `VITE_SITE_URL`인지, 값이 따옴표·공백·끝 슬래시 없는 `https://…` 형식인지, Production에 체크돼 있는지 확인하고 **Redeploy**해요.
+  - 2026-10-21 첫 운영 배포에서 실제로 비어 있었어요. 그래서 운영 배포에서만 `VERCEL_PROJECT_PRODUCTION_URL`로 대신하도록 `vite-plugins/site-url.ts`에 안전장치를 넣었어요(값이 있으면 `VITE_SITE_URL`이 우선). 안전장치가 쓰이면 빌드 로그에 "대신 써요" 경고가 나와요.
 - [ ] `/favicon.svg`가 새 하트(`prefers-color-scheme` 포함)이고 `/favicon-32.png`, `/icon-192.png`, `/apple-touch-icon.png`가 열려요.
 - [ ] 정책 페이지 4개(`/privacy.html /terms.html /about.html /faq.html`)가 200. 시행일 표기.
 - [ ] 옛 주소 `/choeae-about.html` 등 4개가 `301`로 새 주소에 가요.
