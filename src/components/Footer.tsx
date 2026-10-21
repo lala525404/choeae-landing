@@ -15,8 +15,7 @@ export function Footer() {
         <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-1 lg:col-span-5">
             <p className="font-logo text-[20px] leading-tight">{PRODUCT_NAME}</p>
-            {/* TODO(확인 필요): 저작권자 표기 확정 필요(사이트는 lala525404, 이용약관은 Lara Park). 지금은 제품명으로 둔다. */}
-            <p className="t-caption num">© 2026 {PRODUCT_NAME}</p>
+            <p className="t-caption num">© 2026 Lara Park</p>
           </div>
           <nav aria-label="사이트 정보" className="lg:col-span-7">
             <ul className="flex flex-wrap gap-x-5 gap-y-1">

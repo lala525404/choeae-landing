@@ -51,14 +51,13 @@ export function AppScreens() {
               src="/screens/toast.webp"
               width={380}
               height={380}
-              alt={'버디 위에 작은 말풍선으로 "퇴근 5분 전이에요!"라고 미리 알려 주는 모습'}
+              alt={'고양이 버디 위에 종 아이콘과 "퇴근 5분 전이에요!"라고 적힌 작은 알림이 떠 있는 모습'}
               loading="lazy"
               decoding="async"
               className="shot w-[132px] flex-none"
             />
-            {/* TODO(copy): 이 캡션은 landing-copy.md에 없는 문구다. 카피 담당 확인 필요. */}
             <figcaption className="t-caption">
-              미리 알림은 버디 위에 작은 말풍선으로 떠요. 미리 알림은 지금 버전에도 있어요.
+              퇴근 몇 분 전에 버디 위로 작은 알림이 먼저 떠요. 미리 알림은 지금 버전에도 있어요.
             </figcaption>
           </figure>
         </div>

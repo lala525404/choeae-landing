@@ -33,7 +33,7 @@ export function Hero() {
           <div className="panel p-2">
             <BuddyStage />
           </div>
-          {!reduced && <figcaption className="t-caption px-1">버디를 눌러 보세요.</figcaption>}
+          {!reduced && <figcaption className="t-caption px-1">버디를 눌러 보세요. 폴짝 뛰어요.</figcaption>}
         </figure>
       </div>
     </section>

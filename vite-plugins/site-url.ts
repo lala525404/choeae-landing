@@ -17,6 +17,16 @@ const escapeXml = (value: string) =>
 
 const NEEDS_ATTR = 'data-needs-site-url';
 
+/** Vercel 미리보기(Preview) 배포는 검색에 잡히지 않게 한다. 운영(production)과 로컬 빌드는 그대로 둔다. */
+const isNonProductionDeploy = () => !!process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production';
+const NOINDEX_META = '<meta name="robots" content="noindex, nofollow" />';
+
+export function addNoindex(html: string): string {
+  if (html.includes(NOINDEX_META)) return html;
+  return html.replace(/<head([^>]*)>/i, (tag) => `${tag}
+    ${NOINDEX_META}`);
+}
+
 function normalize(raw: string | undefined, warn: (message: string) => void): string {
   const value = (raw ?? '').trim().replace(/\/+$/, '');
   if (!value) return '';
@@ -73,13 +83,15 @@ export function siteUrlPlugin(): Plugin {
         const outDir = path.resolve(config.root, config.build.outDir);
         if (!fs.existsSync(outDir)) return;
 
+        const noindex = isNonProductionDeploy();
         const pages = fs.readdirSync(outDir).filter((name) => name.endsWith('.html')).sort();
         for (const name of pages) {
           const file = path.join(outDir, name);
-          fs.writeFileSync(file, applySiteUrl(fs.readFileSync(file, 'utf-8'), siteUrl));
+          const html = applySiteUrl(fs.readFileSync(file, 'utf-8'), siteUrl);
+          fs.writeFileSync(file, noindex ? addNoindex(html) : html);
         }
 
-        const robots = ['User-agent: *', 'Allow: /'];
+        const robots = ['User-agent: *', noindex ? 'Disallow: /' : 'Allow: /'];
         if (siteUrl) {
           const urls = pages.map((name) => (name === 'index.html' ? `${siteUrl}/` : `${siteUrl}/${name}`));
           const sitemap = [
@@ -90,7 +102,7 @@ export function siteUrlPlugin(): Plugin {
             '',
           ].join('\n');
           fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap);
-          robots.push(`Sitemap: ${siteUrl}/sitemap.xml`);
+          if (!noindex) robots.push(`Sitemap: ${siteUrl}/sitemap.xml`);
         }
         fs.writeFileSync(path.join(outDir, 'robots.txt'), `${robots.join('\n')}\n`);
       },

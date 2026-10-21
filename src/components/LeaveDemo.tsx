@@ -114,7 +114,7 @@ export function LeaveDemo() {
               {run ? '알림이 나오는 중이에요' : ''}
             </p>
             {reduced && (
-              <p className="t-caption">움직임 줄이기 설정을 켜 두셔서 이모지가 제자리에서 나타났다 사라져요.</p>
+              <p className="t-caption">움직임 줄이기 설정이 켜져 있어서 이모지가 제자리에서 나타났다 사라져요.</p>
             )}
           </div>
         </div>
@@ -127,7 +127,7 @@ export function LeaveDemo() {
         >
           {!run && (
             <p className="absolute inset-0 grid place-items-center px-6 text-center text-[13px] text-on-screen">
-              버튼을 누르면 이곳에 알림이 떠요
+              버튼을 누르면 이곳에 퇴근 알림이 떠요
             </p>
           )}
           {run && (
