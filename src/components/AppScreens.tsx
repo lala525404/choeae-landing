@@ -11,8 +11,8 @@ export function AppScreens() {
   return (
     <Section
       id="screens"
-      title="곧 나올 새 설정창을 미리 봐요"
-      intro="아래 화면은 새 디자인(v1.1.0)이에요. 지금 받는 v1.0.9와는 설정창 모양이 달라요."
+      title="설정은 한 화면에서 끝나요"
+      intro="아래는 Windows v1.1.1의 설정창이에요. macOS는 새 디자인 버전이 곧 나와요."
     >
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-6">
         <figure className="lg:col-span-8">
@@ -57,7 +57,7 @@ export function AppScreens() {
               className="shot w-[132px] flex-none"
             />
             <figcaption className="t-caption">
-              퇴근 몇 분 전에 버디 위로 작은 알림이 먼저 떠요. 미리 알림은 지금 버전에도 있어요.
+              퇴근 몇 분 전에 버디 위로 작은 알림이 먼저 떠요.
             </figcaption>
           </figure>
         </div>
@@ -72,7 +72,7 @@ export function AppScreens() {
             decoding="async"
             className="shot"
           />
-          <figcaption className="t-caption">내 사진은 원하는 모양으로 잘라서 올려요. 자르기는 지금 버전에도 있어요.</figcaption>
+          <figcaption className="t-caption">내 사진은 원하는 모양으로 잘라서 올려요.</figcaption>
         </figure>
         <figure className="flex flex-col gap-3 lg:col-span-7">
           <img
@@ -84,7 +84,7 @@ export function AppScreens() {
             decoding="async"
             className="shot"
           />
-          <figcaption className="t-caption">정한 시각에 퇴근 알림이 화면에 떠요. 알림은 지금 버전에도 있어요.</figcaption>
+          <figcaption className="t-caption">정한 시각에 퇴근 알림이 화면에 떠요.</figcaption>
         </figure>
       </div>
     </Section>

@@ -1,6 +1,7 @@
 import {Download, Menu, X} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {NAV_LINKS, PRODUCT_NAME} from '../constants';
+import {HeartMark} from './HeartMark';
 import {ThemeToggle} from './ThemeToggle';
 
 const MENU_ID = 'mobile-menu';
@@ -37,8 +38,9 @@ export function Header() {
         <a
           href="#top"
           aria-label={`${PRODUCT_NAME} 처음으로`}
-          className="inline-flex min-h-11 items-center whitespace-nowrap font-logo text-[20px] leading-none text-ink"
+          className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap font-logo text-[20px] leading-none text-ink"
         >
+          <HeartMark className="h-[18px] w-[19px]" />
           {PRODUCT_NAME}
         </a>
         <nav aria-label="주요 메뉴" className="hidden items-center gap-1 md:flex">

@@ -94,7 +94,7 @@ export function Install() {
             {/* macOS가 Windows보다 늦는 동안만 쓰는 안내. 두 버전이 같아지면 지운다. */}
             {id === 'mac' && (
               <p className="t-caption">
-                macOS용 v{DOWNLOADS.windows.version}는 준비 중이에요. 당분간 v{DOWNLOADS.mac.version}을 써 주세요.
+                macOS용 새 디자인 버전(v{DOWNLOADS.windows.version})은 준비 중이에요. 당분간 v{DOWNLOADS.mac.version}을 써 주세요.
               </p>
             )}
           </div>

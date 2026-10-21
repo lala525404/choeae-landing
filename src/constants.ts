@@ -11,8 +11,8 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
-    version: '1.0.9',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.9/choeae-app-1.0.9.exe',
+    version: '1.1.1',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.1.1/choeae-app-1.1.1.exe',
   },
   // 파일 이름이 이상해 보여도 실제 릴리스 에셋 이름이 이게 맞다.
   mac: {
@@ -20,6 +20,8 @@ export const DOWNLOADS = {
     version: '1.0.8',
     url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.8/-1.0.0-arm64.dmg',
     note: 'Apple Silicon(M1 이후) 전용',
+    // macOS용 새 디자인 버전을 올리면 이 줄과 버전·주소를 함께 바꾼다 (docs/release-checklist.md)
+    soon: '새 디자인 버전은 곧 나와요',
   },
 } satisfies Record<'windows' | 'mac', DownloadInfo>;
 
@@ -140,10 +142,33 @@ export const MAC_STEPS: InstallStep[] = [
 /** 새 버전일수록 위. folded는 "이전 버전 더 보기"를 누르기 전까지 접는다. 근거는 GitHub 릴리스 본문이고, 날짜는 원문에 있는 것만 적는다. */
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: 'v1.1.1',
+    date: '2026.10.21',
+    title: '내 사진을 여러 장 올렸을 때의 사진 교체를 손봤어요.',
+    latest: true,
+    groups: [
+      {
+        label: '새로 생겼어요',
+        items: [
+          '**미리보기가 사진 교체를 따라가요**: 사진을 여러 장 올리면 홈의 미리보기도 설정한 주기로 사진을 번갈아 보여줘요. 미리보기 아래 점으로 지금 몇 번째 사진인지 알 수 있고, 점을 누르면 그 사진을 바로 볼 수 있어요.',
+          '**홈에서 사진 교체 설정**: 사진이 2장 이상이면 홈의 "사진 교체" 칩에서 교체를 켜고 끄고, 주기를 바로 바꿀 수 있어요.',
+          '**대표 사진 고르기**: 내 사진 중에서 대표 사진을 직접 고를 수 있어요. 대표 사진은 점심·퇴근·알람 알림 카드에 나와요.',
+        ],
+      },
+      {
+        label: '고쳤어요',
+        items: [
+          '사진 교체가 설정한 주기대로 바뀌어요. 이전에는 설정한 주기보다 더 빨리 바뀌던 문제를 고쳤어요.',
+          '졸림 방지는 이제 사진을 넘기지 않고 말풍선만 보여요. 사진은 사진 교체 주기에 따라서만 바뀌어요.',
+        ],
+      },
+    ],
+    note: 'Windows: choeae-app-1.1.1.exe (설치 없이 바로 실행)\nmacOS 버전은 곧 추가됩니다.',
+  },
+  {
     version: 'v1.1.0',
     date: '2026.10.21',
     title: '설정창이 새 디자인으로 바뀌고, 앱 아이콘도 새로 바뀌었어요.',
-    latest: true,
     groups: [
       {
         label: '새로 생겼어요',

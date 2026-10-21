@@ -1,4 +1,5 @@
 import {CONTACT_HREF, PRODUCT_NAME} from '../constants';
+import {HeartMark} from './HeartMark';
 
 const LINKS = [
   {href: '/privacy.html', label: '개인정보처리방침'},
@@ -14,7 +15,10 @@ export function Footer() {
       <div className="mx-auto flex max-w-[1120px] flex-col gap-6 px-5 md:px-8">
         <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-1 lg:col-span-5">
-            <p className="font-logo text-[20px] leading-tight">{PRODUCT_NAME}</p>
+            <p className="flex items-center gap-2 font-logo text-[20px] leading-tight">
+              <HeartMark className="h-[18px] w-[19px]" />
+              {PRODUCT_NAME}
+            </p>
             <p className="t-caption num">© 2026 Lara Park</p>
           </div>
           <nav aria-label="사이트 정보" className="lg:col-span-7">

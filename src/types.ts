@@ -9,6 +9,8 @@ export interface DownloadInfo {
   url: string;
   /** 버튼 아래 작은 글씨 */
   note?: string;
+  /** note 아래에 한 줄 더 붙이는 곧 나올 소식. 나오면 지운다 */
+  soon?: string;
 }
 
 export interface Buddy {

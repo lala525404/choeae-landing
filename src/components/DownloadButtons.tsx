@@ -30,6 +30,7 @@ export function DownloadButtons({align = 'start'}: DownloadButtonsProps) {
         <div className={`flex flex-col gap-2 ${centered ? 'items-stretch sm:items-center' : 'items-stretch sm:items-start'}`}>
           <DownloadLink os="mac" primary={platform === 'mac'} />
           <p className="t-caption px-1">{DOWNLOADS.mac.note}</p>
+          {DOWNLOADS.mac.soon && <p className="t-caption px-1">{DOWNLOADS.mac.soon}</p>}
         </div>
       </div>
       {platform === 'mobile' && <p className={`t-caption ${centered ? 'text-center' : ''}`}>컴퓨터에서 받아 주세요</p>}
