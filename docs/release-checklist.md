@@ -67,6 +67,6 @@
 - [ ] 그다음 2~4단계를 다시 해요. 특히 맥 다운로드 주소가 200이고 `Content-Length`가 올린 dmg 크기와 같은지 확인해요.
 
 ## 6. 열려 있는 확인 사항
-- `public/privacy.html`: 호스팅(Vercel) 방문 기록 처리 안내를 넣을지 정해야 해요(주석 TODO).
+- 호스팅(Vercel) 접속 기록 안내는 `public/privacy.html` 제3자 서비스 항목에 한 문장으로 넣었어요(2026-10-21).
 - Google signals는 꺼짐, Buy Me a Coffee는 씀으로 확정했어요(2026-10-21). 바뀌면 개인정보처리방침을 같이 고쳐요.
 - OG 이미지(`public/og.png`)에 옛 화면이 들어 있다면 새 디자인으로 바꿀지 확인해요.
