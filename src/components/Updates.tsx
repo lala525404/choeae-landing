@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {DOWNLOADS, RELEASE_NOTES} from '../constants';
+import {RichText} from '../lib/RichText';
 import {Section} from './Section';
 
 const FOLDED_LIST_ID = 'updates-folded';
@@ -27,12 +28,12 @@ export function Updates() {
             {group.label && <p className="t-caption">{group.label}</p>}
             <ul className="t-body flex list-disc flex-col gap-1 pl-5 marker:text-sub">
               {group.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}><RichText text={item} /></li>
               ))}
             </ul>
           </div>
         ))}
-        {note.note && <p className="t-caption">{note.note}</p>}
+        {note.note && <p className="t-caption whitespace-pre-line">{note.note}</p>}
       </div>
     </li>
   );
