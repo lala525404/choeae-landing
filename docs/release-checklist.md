@@ -1,7 +1,7 @@
 # 릴리스 체크리스트 (앱 새 버전 → 랜딩 배포)
 
 앱 저장소(`nyang-pet-app`)에서 새 버전의 GitHub 릴리스를 올린 뒤, 랜딩(`choeae-landing`)에 반영하는 순서예요.
-기준: 앱 저장소 `release\RELEASE_NOTES_v<버전>.md`. 마지막으로 이 순서대로 진행한 버전은 **v1.1.1 (Windows, 2026-10-21)**이에요. 3D 바탕화면 랜딩(`feature/landing-3d-impl`)부터는 화면 구조가 `src/landing/`로 바뀌었어요(설명: `docs/landing-3d-impl.md`).
+기준: 앱 저장소 `release\RELEASE_NOTES_v<버전>.md`. 마지막으로 이 순서대로 진행한 버전은 **v1.2.0 (Windows, 2026-10-22)**이에요. 3D 바탕화면 랜딩(`feature/landing-3d-impl`)부터는 화면 구조가 `src/landing/`로 바뀌었어요(설명: `docs/landing-3d-impl.md`).
 
 ## 0. 시작 전 (앱 쪽)
 - [ ] 앱 `main`에 머지돼 있고, 태그 `v<버전>`이 그 커밋을 가리켜요. (`git ls-remote --tags origin v<버전>`)
