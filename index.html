@@ -36,7 +36,7 @@
         if (intro) root.dataset.pre = '';
         // 좁은 화면(화면이 세로로 쌓임)에서 직접 링크(#features 등)로 들어오면, 화면 밖 렌더링 생략(content-visibility)을 이번 방문에서는 끈다:
         // 화면마다 높이가 달라 예상 높이와 실제 높이가 어긋나면 도착한 화면이 밀리기 때문이다(레이아웃 이동). 데스크톱은 화면 높이가 정확히 100svh라 그대로 쓴다.
-        else if (hash && window.innerWidth <= 1100) root.dataset.cvoff = '';
+        else if (hash && !/^#(hero|intro)$/.test(hash) && window.innerWidth <= 1100) root.dataset.cvoff = '';
       })();
     </script>
     <meta name="theme-color" content="#F4F4F4" media="(prefers-color-scheme: light)" />

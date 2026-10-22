@@ -39,3 +39,10 @@ public/privacy.html   개인정보처리방침 전문. 화면의 요약 도식�
 - `npm run lint` · `npm run build`
 - 겹침·잘림: 화면마다 보이는 요소의 사각형을 모아 서로 겹치는지 보는 Playwright 스크립트로 1366×768, 1440×900, 1280×720, 1290×600, 1920×1080, 390×844를 확인했다(스크립트는 저장소에 넣지 않음).
 - 글꼴: 화면에 나오는 모든 글자가 `public/fonts/PretendardVariable-subset.woff2`에 있는지 확인(`docs/release-checklist.md` 1단계). 새 글자가 생기면 앱 저장소 `node_modules\pretendard`의 원본에서 wght 400~700으로 다시 서브셋.
+
+## 미리 그리기와 성능 메모
+- **미리 그리기**: `vite-plugins/landing-shell.ts`가 빌드 때 `<App />`을 HTML로 그려 `index.html`의 `<!--LANDING_SHELL-->` 자리에 넣고, `main.tsx`가 `hydrateRoot`로 그 DOM에 붙는다(비어 있으면 `createRoot`). 그래서 JS가 오기 전에도 앱 이름·모든 카테고리 글자가 HTML에 있고, 첫 화면 요소(h1 등)가 다시 만들어지지 않는다. 플랫폼(Windows/macOS) 표기는 `usePlatform`이 붙은 뒤에 바뀐다. **컴포넌트에 `window`/`navigator`를 렌더 중에 읽는 코드를 넣지 말 것**(미리 그리기가 깨진다).
+- 인트로 연출이 시작되기 전까지 `html[data-pre]`가 하트·문구·버튼을 투명하게 둔다(6초 안전장치). 앱 이름은 처음부터 보인다.
+- 인트로는 `position: fixed` 층이다(문서 흐름은 히어로부터). 줌인·"처음으로"에서 아래 화면이 밀리지 않는다.
+- 화면 밖 화면은 `content-visibility: auto`. 좁은 화면에서 `#features` 같은 직접 링크로 들어오면 그 방문에서는 끈다(`html[data-cvoff]`, 예상 높이와 실제 높이 차이로 화면이 밀리는 것을 막음). 데스크톱 히어로는 `100svh`로 고정(웹폰트 교체로 높이가 변해 아래 화면이 밀리는 것 방지).
+- 모바일 Lighthouse는 운영 기준(약 77)과 비슷한 70대 후반이다. **Google Analytics(gtag) 스크립트를 막고 재면 구현 93~94 / 운영 91~95**라서, 점수를 가르는 것은 GA 로드다(LCP·TBT 모두). GA를 `load` 뒤 유휴 시간에 불러오면 올라갈 것으로 보이지만 통계 수집 시점이 바뀌어 결정이 필요하다.

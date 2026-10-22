@@ -478,6 +478,8 @@ details.tv .tvb { padding: 8px 10px 4px; }
    데스크톱은 화면 높이가 정확히 100svh라서 예상 높이와 같고, 좁은 화면은 아래 화면별 예상 높이(실측값)를 쓴다. 한 번 그려진 뒤에는 브라우저가 실제 높이를 기억한다(auto) */
 .screen:not(#intro) { content-visibility: auto; contain-intrinsic-size: auto var(--ci, 100svh); }
 html[data-cvoff] .screen { content-visibility: visible !important; }
+/* 인트로 층이 덮고 있는 동안 아래의 히어로는 그리지 않는다(첫 방문 로드 비용). 글자는 DOM에 그대로 있고, 줌인으로 메인에 들어오면 바로 그려진다 */
+html[data-zone=intro] #hero { content-visibility: hidden; }
 @media (max-width: 1100px) { .cat { --ci: 1600px; } #download { --ci: 1250px; } #index { --ci: 100svh; } }
 @media (max-width: 720px) {
   #hero { --ci: 1130px; } #index { --ci: 860px; }
