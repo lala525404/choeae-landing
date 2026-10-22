@@ -18,7 +18,7 @@
 /* 다크 토큰: 메인의 다크 테마, 인트로 구역(html[data-zone=intro]), 인트로 화면 자체(#intro)가 같은 값을 쓴다.
    #intro에도 직접 걸어 두는 이유: 스크롤로 인트로와 히어로가 같이 보일 때 인트로 글자가 밝게 뒤집히지 않게 하려는 것 */
 :root[data-theme=dark], :root[data-zone=intro], #intro {
-  --win: #0F0F10; --panel: #18181A; --item: #222225; --line: #2A2A2E; --line2: #3A3A40; --ink: #F2F2F2; --sub: #8E8E93; --accent: #3B82F6;
+  --win: #0F0F10; --panel: #18181A; --item: #222225; --line: #2A2A2E; --line2: #3A3A40; --ink: #F2F2F2; --sub: #8E8E93; --accent: #3B82F6; --link: #7DB0FF;
   --grid: rgba(255, 255, 255, .06); --noise: .05; --ghost: rgba(255, 255, 255, .04); --spark: #fff; --wall: #1b1c21; --wall2: #14151a;
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .45); --shadow-drag: 0 18px 48px rgba(0, 0, 0, .6);
   --hg0: #2b2b31; --hg1: #1b1b1f; --hg2: #4c4c54; --hg3: #d6d6dc; --hv: .55; --hspec: .8; --hrim: 1; --outline: rgba(255, 255, 255, .28); --glow: rgba(255, 255, 255, .10);
@@ -128,10 +128,12 @@ main { position: relative; z-index: 10; }
 .pgn { font-size: 13px; font-weight: 600; color: var(--sub); font-variant-numeric: tabular-nums; line-height: 1.4; }
 .hd h2 { font-size: clamp(26px, 3.2vw, 40px); line-height: 1.2; letter-spacing: -.02em; }
 .hd-sub { margin-top: 6px; font-size: 15px; color: var(--sub); line-height: 1.5; }
-.to-index { display: none; }
+.btn.to-index { display: none; }
 
 /* 인트로(첫 화면): 항상 다크 */
 #intro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 84px 6vw 64px; background: var(--win); color: var(--ink); }
+/* 인트로는 화면 전체를 덮는 고정 층이다. 문서의 흐름은 히어로부터 시작하므로 인트로를 걷어도(줌인) 다시 띄워도("처음으로") 아래 화면이 밀리지 않는다(레이아웃 이동 0) */
+#intro.screen { position: fixed; inset: 0; z-index: 50; min-height: 0; scroll-snap-align: none; }
 #intro > .islot, #intro > .ic { position: relative; z-index: 1; }
 .islot { height: 190px; width: 200px; }
 .ic { display: flex; flex-direction: column; align-items: center; width: 100%; }
@@ -365,8 +367,8 @@ details p { padding-bottom: 12px; color: var(--sub); font-size: 14px; }
 .f7d .f7w { position: absolute; }
 @keyframes f7 { 0%, 28% { opacity: 0; } 36%, 60% { opacity: 1; } 68%, 94% { opacity: .45; } 100% { opacity: 0; } }
 .f7t { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
-.f7t em { font-style: normal; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); opacity: .5; animation: f7e 6s infinite; animation-delay: calc(var(--i) * 2s); }
-@keyframes f7e { 0% { opacity: 1; background: var(--item); } 30% { opacity: 1; background: var(--item); } 35%, 100% { opacity: .5; background: transparent; } }
+.f7t em { font-style: normal; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--sub); animation: f7e 6s infinite; animation-delay: calc(var(--i) * 2s); }   /* 글자 대비는 색으로 바꾼다(투명도를 쓰면 대비가 모자라다) */
+@keyframes f7e { 0%, 30% { color: var(--ink); background: var(--item); } 35%, 100% { color: var(--sub); background: transparent; } }
 /* f8 트레이 · 앱 종료 메뉴 */
 .f8m { right: 6%; bottom: 22%; width: 46%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 3px; box-shadow: var(--shadow); transform-origin: bottom right; animation: f8m 5s infinite; }
 .f8m span { display: block; font-size: 8px; padding: 2px 5px; border-radius: 4px; white-space: nowrap; animation: f8i 5s infinite; animation-delay: calc(var(--i) * .8s); }
@@ -475,6 +477,7 @@ details.tv .tvb { padding: 8px 10px 4px; }
 /* 화면 밖 화면(히어로·인덱스·카테고리)은 렌더링을 건너뛴다. 텍스트는 DOM·검색·접근성에 그대로 남고, 처음 그릴 때의 스타일·레이아웃 비용(모바일 CPU 4배 기준 약 0.6초)이 크게 줄어든다.
    데스크톱은 화면 높이가 정확히 100svh라서 예상 높이와 같고, 좁은 화면은 아래 화면별 예상 높이(실측값)를 쓴다. 한 번 그려진 뒤에는 브라우저가 실제 높이를 기억한다(auto) */
 .screen:not(#intro) { content-visibility: auto; contain-intrinsic-size: auto var(--ci, 100svh); }
+html[data-cvoff] .screen { content-visibility: visible !important; }
 @media (max-width: 1100px) { .cat { --ci: 1600px; } #download { --ci: 1250px; } #index { --ci: 100svh; } }
 @media (max-width: 720px) {
   #hero { --ci: 1130px; } #index { --ci: 860px; }
@@ -488,6 +491,8 @@ details.tv .tvb { padding: 8px 10px 4px; }
   .hd-sub { font-size: 14px; margin-top: 2px; }
   .cat .sec-actions { top: 58px; }
 }
+/* 데스크톱 히어로는 글꼴이 바뀌어도(웹폰트 교체) 높이가 변하지 않게 화면 높이로 고정한다: 아래 화면이 밀리는 레이아웃 이동(CLS)을 막는다 */
+@media (min-width: 1101px) { #hero { height: 100svh; min-height: 0; } }
 /* 키가 낮은 화면(데스크톱): 히어로·인덱스를 압축하고, 자리가 모자라 겹치는 보조 요소(시스템 줄·스크롤 안내)는 숨긴다 */
 @media (min-width: 721px) and (max-height: 700px) {
   #sys, .cue { display: none; }
@@ -511,7 +516,7 @@ details.tv .tvb { padding: 8px 10px 4px; }
   body[data-cat] #stage { opacity: 0; }
   #sys { display: none; }
   #prog { display: none !important; }   /* 좁은 화면에서는 따라다니는 진행 표시 대신, 화면마다 제목 아래 "인덱스로" 링크를 둔다(스크롤하는 글자와 겹치지 않게) */
-  .to-index { display: inline-flex; margin-top: 10px; }
+  .btn.to-index { display: inline-flex; margin-top: 10px; }
 }
 @media (max-width: 720px) {
   .steps3 { grid-template-columns: 1fr; } .sc:not(:last-child)::after { right: auto; left: 50%; top: auto; bottom: -13px; transform: rotate(135deg); }
@@ -525,7 +530,7 @@ details.tv .tvb { padding: 8px 10px 4px; }
   #hero { display: block; padding: 132px 16px 56px; }
   .hslot { height: 150px; width: 120px; margin: 0 auto; }
   #hero h2.hero-h { max-width: none; }
-  #intro { min-height: 100svh; overflow: hidden; }
+  #intro { overflow: hidden; }
   #entry { flex-direction: column; align-items: stretch; width: 100%; }
   .cta { flex-direction: column; align-items: stretch; } .cta .btn { width: 100%; }
   .mon { margin-top: 28px; }

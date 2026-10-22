@@ -203,6 +203,10 @@ export function initNav(ctx: Ctx) {
     } else delete body.dataset.cat;
     progl.forEach((a, j) => (j === i ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
     $$('.cat').forEach((s) => s.classList.toggle('act', s.id === id)); // 보이는 화면의 샘플 애니메이션만 재생
+    // 인트로가 덮고 있는 동안 아래 화면은 키보드·스크린리더가 닿지 않게 한다(눈에 안 보이는 링크로 Tab이 들어가지 않게)
+    $$('main > section:not(#intro)').forEach((s) => {
+      s.inert = id === 'intro';
+    });
     ctx.fn.place();
     if (location.hash !== '#' + id && !(id === 'intro' && !location.hash)) history.replaceState(null, '', id === 'intro' ? location.pathname + location.search : '#' + id); // 스크롤로 바뀐 위치는 기록을 쌓지 않고 덮어쓴다
   };
@@ -210,7 +214,7 @@ export function initNav(ctx: Ctx) {
   const io = new IntersectionObserver(
     (es) =>
       es.forEach((e) => {
-        if (!e.isIntersecting || performance.now() < lockUntil || st.zooming) return;
+        if (!e.isIntersecting || performance.now() < lockUntil || st.zooming || zone() === 'intro') return; // 인트로 층이 덮은 동안에는 아래 화면이 중앙선에 있어도 활성으로 보지 않는다
         const id = e.target.id;
         if (navState.target && navState.target !== id) return;
         ctx.fn.activate(id);

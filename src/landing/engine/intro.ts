@@ -304,10 +304,10 @@ export function initIntro(ctx: Ctx) {
       c.anims.forEach((a) => {
         if ((a.effect as KeyframeEffect | null)?.target !== veil) a.cancel();
       });
-      root.dataset.zone = 'main'; // 인트로 구역 해제: 스크롤 잠금이 풀리고 인트로가 레이아웃에서 빠진다
       if (opts.nonum) root.dataset.nonum = '';
       if (target !== 'hero' && (CAT as readonly string[]).includes(target)) st.directId = target;
       history.replaceState(null, '', '#' + target); // 줌인은 히스토리에 남기지 않는다
+      root.dataset.zone = 'main'; // 인트로 구역 해제: 스크롤 잠금이 풀리고 인트로 층이 사라진다(문서 흐름은 그대로라 아래 화면이 밀리지 않는다)
       instantScroll($('#' + target));
       requestAnimationFrame(() => {
         // 한 프레임에 몰리지 않게: 이동 → (오버레이가 덮은 채 한 프레임) → 활성화·하트 이동·걷힘
@@ -412,7 +412,6 @@ export function initIntro(ctx: Ctx) {
       root.dataset.zone = 'intro';
       ctx.fn.enterIntroReady();
       history.replaceState(null, '', '#intro');
-      instantScroll(introEl);
       ctx.fn.activate('intro', true);
       stage.classList.add('jump');
       ctx.fn.place();
