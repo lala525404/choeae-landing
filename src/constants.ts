@@ -11,8 +11,8 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
-    version: '1.1.1',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.1.1/choeae-app-1.1.1.exe',
+    version: '1.2.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.2.0/choeae-app-1.2.0.exe',
   },
   // 파일 이름이 이상해 보여도 실제 릴리스 에셋 이름이 이게 맞다.
   mac: {
@@ -142,10 +142,33 @@ export const MAC_STEPS: InstallStep[] = [
 /** 새 버전일수록 위. folded는 "이전 버전 더 보기"를 누르기 전까지 접는다. 근거는 GitHub 릴리스 본문이고, 날짜는 원문에 있는 것만 적는다. */
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: 'v1.2.0',
+    date: '2026.10.22',
+    title: '새 하트 아이콘과 하트 버디, 말풍선 직접 설정, 새 인트로와 처음 시작 안내가 생겼어요.',
+    latest: true,
+    groups: [
+      {
+        label: '새로 생겼어요',
+        items: [
+          '**새 하트 아이콘과 하트 버디**: 앱 아이콘과 트레이 아이콘이 눈 달린 하트로 바뀌었어요. 동물 고르기 맨 앞에 "최애 하트"가 생겼고, 새로 설치하면 하트가 기본 버디예요. 라이트에서는 검정, 다크에서는 흰색이에요.',
+          '**말풍선 직접 설정**: 내 메시지를 5개까지 적어 두면 순서대로 돌아가며 말해 줘요. 메시지가 없는 동안에는 현재 시각을 보여 주고, 떠 있는 시간과 나오는 주기도 정할 수 있어요.',
+          '**새 인트로와 처음 시작 튜토리얼**: 설정창을 열면 하트가 눈을 뜨고 맞아 줘요. 새로 설치하면 버디 고르기, 알림 켜기, 마무리 3단계로 1분 안에 둘러보고, 마무리에서 화면 색을 라이트 / 다크 / 시스템 중에서 바로 골라 볼 수 있어요.',
+          '**설정창을 다시 여는 방법 안내**: 설정창을 닫아도 버디는 계속 놀아요. 버디를 우클릭하거나, 트레이의 하트 아이콘을 누르거나(Windows 11은 작업 표시줄 오른쪽 ^ 안에 숨어 있을 수 있어요), 앱을 다시 실행하면 돼요. 처음 시작 안내와 설정창을 처음 닫을 때 알려 줘요.',
+        ],
+      },
+      {
+        label: '그대로예요',
+        items: [
+          '예전부터 쓰던 분은 고른 동물이나 사진, 테마를 포함해 기존 설정이 그대로 유지돼요. 하트 기본 버디와 라이트 기본 색은 새로 설치한 분께만 적용돼요.',
+        ],
+      },
+    ],
+    note: 'Windows: choeae-app-1.2.0.exe (설치 없이 바로 실행)\nmacOS 버전은 곧 추가됩니다.',
+  },
+  {
     version: 'v1.1.1',
     date: '2026.10.21',
     title: '내 사진을 여러 장 올렸을 때의 사진 교체를 손봤어요.',
-    latest: true,
     groups: [
       {
         label: '새로 생겼어요',
