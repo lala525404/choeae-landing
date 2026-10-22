@@ -11,24 +11,21 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
-    version: '1.2.0',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.2.0/choeae-app-1.2.0.exe',
+    version: '1.3.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.3.0/choeae-app-1.3.0.exe',
     ext: '.exe',
     note: '설치 없이 바로 실행',
-    // choeae-app-1.2.0.exe는 73,286,939바이트
+    // choeae-app-1.3.0.exe는 73,410,054바이트
     size: '약 70MB',
   },
-  // 파일 이름이 이상해 보여도 실제 릴리스 에셋 이름이 이게 맞다.
   mac: {
     name: 'macOS',
-    version: '1.0.8',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.8/-1.0.0-arm64.dmg',
+    version: '1.3.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.3.0/choeae-app-1.3.0-arm64.dmg',
     ext: '.dmg',
-    // -1.0.0-arm64.dmg는 95,415,579바이트
-    size: '약 91MB',
+    // choeae-app-1.3.0-arm64.dmg는 100,432,525바이트
+    size: '약 96MB',
     note: 'Apple Silicon(M1 이후) 전용',
-    // macOS용 새 디자인 버전을 올리면 이 줄과 버전·주소를 함께 바꾼다 (docs/release-checklist.md)
-    soon: '새 디자인 버전은 곧 나와요',
   },
 } satisfies Record<'windows' | 'mac', DownloadInfo>;
 
@@ -155,10 +152,35 @@ export const MAC_STEPS: InstallStep[] = [
 /** 새 버전일수록 위. folded는 "이전 버전 더 보기"를 누르기 전까지 접는다. 근거는 GitHub 릴리스 본문이고, 날짜는 원문에 있는 것만 적는다. */
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: 'v1.3.0',
+    title: '알람에 이름·시간 범위·참석자·메모를 적고, 요일 반복과 주간 캘린더로 한눈에 볼 수 있어요.',
+    latest: true,
+    groups: [
+      {
+        label: '새로 생겼어요',
+        items: [
+          '**알람 정보**: 알람에 이름, 시간 범위, 참석자, 메모를 적어 둘 수 있어요.',
+          '**알람별 사전 알림**: 알람마다 몇 분 전에 미리 알려 줄지 따로 정해요.',
+          '**요일 반복 알람**: 원하는 요일에만 반복해서 울리게 할 수 있어요.',
+          '**특정 날짜 알람**: 정해 둔 날짜 하루에만 울리는 알람을 만들 수 있어요.',
+          '**주간 캘린더 화면**: 이번 주 알람을 캘린더로 한눈에 볼 수 있어요.',
+          '**놓친 알람 10분 안내**: 놓친 알람이 있으면 10분 동안 안내해 줘요.',
+        ],
+      },
+      {
+        label: '좋아졌어요',
+        items: ['설정창의 정렬을 화면마다 같은 기준으로 맞췄어요.'],
+      },
+      {
+        label: '고쳤어요',
+        items: ['v1.2.1: 설정창이 닫혀 있어도 알람 알림이 뜨도록 고쳤어요.'],
+      },
+    ],
+  },
+  {
     version: 'v1.2.0',
     date: '2026.10.22',
     title: '새 하트 아이콘과 하트 버디, 말풍선 직접 설정, 새 인트로와 처음 시작 안내가 생겼어요.',
-    latest: true,
     groups: [
       {
         label: '새로 생겼어요',

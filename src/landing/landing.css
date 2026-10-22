@@ -276,7 +276,6 @@ details p { padding-bottom: 12px; color: var(--sub); font-size: 14px; }
 .chip { display: inline-flex; gap: 5px; align-items: center; font-size: 12px; font-weight: 600; line-height: 1; padding: 5px 10px; border-radius: 999px; background: var(--item); border: 1px solid var(--line); white-space: nowrap; }
 .chip .ico { width: 13px; height: 13px; }
 .chip.ok { background: var(--ink); color: var(--win); border-color: var(--ink); }
-.chip.soon { border-style: dashed; color: var(--sub); }
 
 /* ── 샘플 화면(미니): 가벼운 SVG/CSS 애니메이션. 화면 밖이면 멈추고, 움직임 줄이기에서는 정지 상태 ── */
 .mini { position: relative; container-type: inline-size; aspect-ratio: 16/11; border-radius: 12px; overflow: hidden; background: linear-gradient(160deg, var(--wall), var(--wall2)); border: 1px solid var(--line); }
@@ -286,7 +285,7 @@ details p { padding-bottom: 12px; color: var(--sub); font-size: 14px; }
 .hl svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .bob svg { animation: bobk .6s ease-in-out infinite; }
 @keyframes bobk { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-.cat:not(.act) .mini *, .cat:not(.act) .dots i, .cat.entering .mini *, .cat.entering .dots i { animation-play-state: paused !important; }   /* 화면 밖이거나 진입 연출 중에는 샘플 화면을 멈춘다 */
+.cat:not(.act) .mini *, .cat.entering .mini * { animation-play-state: paused !important; }   /* 화면 밖이거나 진입 연출 중에는 샘플 화면을 멈춘다 */
 .mwin { left: 9%; top: 16%; width: 58%; height: 54%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
 .mwin i { display: block; height: 5px; border-radius: 3px; background: var(--line); margin: 8px 8px 0; }
 /* 1 설치 */
@@ -394,16 +393,11 @@ details p { padding-bottom: 12px; color: var(--sub); font-size: 14px; }
 .tips .ico { width: 28px; height: 28px; padding: 5px; border-radius: 8px; background: var(--item); border: 1px solid var(--line); }
 .oscards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .osc { border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px; background: var(--panel); }
-.osc.soon { border-style: dashed; }
 .osh { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .osh .ico { width: 26px; height: 26px; }
 .osh b { font-size: 17px; }
 .ver { font-size: 22px; font-weight: 700; line-height: 1.2; }
 .osc .dl { margin: 4px 0 0; }
-.dots { display: flex; gap: 5px; }
-.dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--sub); opacity: .3; animation: dotp 1.4s infinite; }
-.dots i:nth-child(2) { animation-delay: .2s; } .dots i:nth-child(3) { animation-delay: .4s; }
-@keyframes dotp { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
 .flow { list-style: none; padding: 0; display: flex; align-items: flex-start; gap: 4px; margin: 6px 0 0; }
 .flow li { flex: 1; text-align: center; font-size: 12px; line-height: 1.35; }
 .flow .ic { width: 42px; height: 42px; border-radius: 12px; background: var(--item); border: 1px solid var(--line); display: grid; place-items: center; margin: 0 auto 4px; }
@@ -448,7 +442,7 @@ details.tv .tvb { padding: 8px 10px 4px; }
 
 /* 움직임 줄이기: 샘플 화면은 정지 상태(완성된 한 장면)로 */
 @media (prefers-reduced-motion: reduce) {
-  .mini *, .dots i, .sd .sl, .sd .sb, .bob svg, .f7t em { animation: none !important; }
+  .mini *, .sd .sl, .sd .sb, .bob svg, .f7t em { animation: none !important; }
   .m1w, .f3c, .f8m, .m3t { opacity: 1; } .m1c, .m1r { opacity: 0; } .m1w b { transform: none; } .m1f { transform: none; }
   .f1f img:first-child, .f2c > span:nth-child(2), .f2b > span:nth-child(2) { opacity: 1; } .f1d i:first-child { opacity: 1; }
   .f3e { opacity: .9; transform: translateY(-10cqw); } .m3b { transform: translateX(40cqw); } .f5m.c { transform: translateX(4cqw); } .f5m.b { transform: translateX(18cqw); } .f5m.x { transform: translateX(34cqw); }
@@ -458,7 +452,7 @@ details.tv .tvb { padding: 8px 10px 4px; }
   #stage, .bodywrap, .notif, .bubble { transition: none; }
 }
 /* 순환 재생: 8개 중 3개만 움직이고 나머지는 완성된 정지 장면(.hold). 호버·포커스한 카드는 바로 재생 */
-.fc.hold .mini *, .fc.hold .dots i, .fc.hold .sd .sl, .fc.hold .sd .sb, .fc.hold .bob svg, .fc.hold .f7t em { animation: none !important; }
+.fc.hold .mini *, .fc.hold .sd .sl, .fc.hold .sd .sb, .fc.hold .bob svg, .fc.hold .f7t em { animation: none !important; }
 .fc.hold .m1w, .fc.hold .f3c, .fc.hold .f8m, .fc.hold .m3t { opacity: 1; }
 .fc.hold .m1c, .fc.hold .m1r { opacity: 0; }
 .fc.hold .m1w b { transform: none; }

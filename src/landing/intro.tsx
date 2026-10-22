@@ -7,7 +7,7 @@ export const ONE_LINER = '좋아하는 사진이 모니터 위를 돌아다니�
 /** 인트로·히어로의 "바로 다운받기" 아래 작은 글씨 */
 export function ctaSub(platform: Platform) {
   const {windows, mac} = DOWNLOADS;
-  if (platform === 'mac') return mac.soon ? 'macOS 새 버전 준비 중 · 무료' : `macOS v${mac.version} · 무료`;
+  if (platform === 'mac') return `macOS v${mac.version} · 무료`;
   if (platform === 'mobile') return '컴퓨터에서 받아 주세요 · 무료';
   return `Windows v${windows.version} · 무료`;
 }

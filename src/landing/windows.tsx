@@ -226,28 +226,18 @@ const platformLabel = (p: Platform) => (p === 'mac' ? 'macOS' : p === 'mobile' ?
 
 function OsCard({os, primary}: {os: DownloadOS; primary: boolean}) {
   const d = DOWNLOADS[os];
-  const soon = 'soon' in d && d.soon ? d.soon : undefined;
   const note = 'note' in d && d.note ? d.note : '';
   return (
-    <div className={`osc${soon ? ' soon' : ''}`}>
+    <div className="osc">
       <div className="osh">
         <Icon n={os === 'windows' ? 'monitor' : 'laptop'} />
         <b>{d.name}</b>
-        {soon ? (
-          <span className="chip soon">
-            <Icon n="clock" />
-            {soon}
-          </span>
-        ) : (
-          <span className="chip ok">
-            <Icon n="check" />
-            받을 수 있어요
-          </span>
-        )}
+        <span className="chip ok">
+          <Icon n="check" />
+          받을 수 있어요
+        </span>
       </div>
-      <p className="ver">
-        {soon ? '지금은 ' : ''}v{d.version}
-      </p>
+      <p className="ver">v{d.version}</p>
       <p className="sub">
         {d.ext} · {d.size}
         {note ? ` · ${note}` : ''}
@@ -255,13 +245,6 @@ function OsCard({os, primary}: {os: DownloadOS; primary: boolean}) {
       <a className={primary ? 'dl' : 'dl gray'} href={d.url} download data-avoid>
         {downloadLabel(os)}
       </a>
-      {soon && (
-        <p className="dots" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </p>
-      )}
     </div>
   );
 }
