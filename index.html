@@ -15,27 +15,25 @@
   gtag('config', 'G-P42C9C1EQ0');
 </script>
     <script>
-      // 깜빡임 방지: 렌더 전에 화면 테마(light/dark)를 정한다. 선택값은 localStorage "choeae-theme"(light/dark/system).
+      // 첫 페인트 전에 두 가지를 정한다(깜빡임 방지).
+      // 1) data-theme: 화면 테마(light/dark). 기본은 라이트이고, 저장된 선택(localStorage "choeae-theme")이 dark면 다크, system이면 시스템 설정을 따른다.
+      // 2) data-zone: 인트로 구역이면 저장된 테마·시스템 설정과 상관없이 다크 + 스크롤 잠금. 인트로를 이미 봤거나(choeae-intro) #download 같은 직접 링크면 처음부터 메인 구역이다.
       (function () {
-        var KEY = 'choeae-theme';
         var root = document.documentElement;
-        var query = window.matchMedia('(prefers-color-scheme: dark)');
-        function saved() {
-          try {
-            var value = localStorage.getItem(KEY);
-            return value === 'light' || value === 'dark' ? value : 'system';
-          } catch (e) {
-            return 'system';
-          }
-        }
-        function apply() {
-          var pref = saved();
-          root.dataset.theme = pref === 'system' ? (query.matches ? 'dark' : 'light') : pref;
-        }
-        apply();
-        query.addEventListener('change', function () {
-          if (saved() === 'system') apply();
-        });
+        var hash = location.hash;
+        var query = location.search;
+        var saved = null;
+        var seen = false;
+        try {
+          saved = localStorage.getItem('choeae-theme');
+          seen = localStorage.getItem('choeae-intro') === '1';
+        } catch (e) {}
+        var dark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        root.dataset.theme = dark ? 'dark' : 'light';
+        var intro = /[?&]intro=1/.test(query) || (!/[?&]intro=0/.test(query) && (hash === '#intro' || (!hash && !seen)));
+        root.dataset.zone = intro ? 'intro' : 'main';
+        // 인트로 연출이 시작되기 전까지 문구·버튼은 투명하게 둔다(미리 그려 둔 첫 화면이 깜빡이지 않게). 연출이 시작되면 engine이 지운다
+        if (intro) root.dataset.pre = '';
       })();
     </script>
     <meta name="theme-color" content="#F4F4F4" media="(prefers-color-scheme: light)" />
@@ -76,7 +74,7 @@
         <p><a href="/privacy.html">개인정보처리방침</a> · <a href="/terms.html">이용약관</a> · <a href="/about.html">서비스 소개</a> · <a href="/faq.html">FAQ</a></p>
       </div>
     </noscript>
-    <div id="root"></div>
+    <div id="root"><!--LANDING_SHELL--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

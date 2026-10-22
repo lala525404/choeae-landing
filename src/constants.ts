@@ -13,12 +13,19 @@ export const DOWNLOADS = {
     name: 'Windows',
     version: '1.2.0',
     url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.2.0/choeae-app-1.2.0.exe',
+    ext: '.exe',
+    note: '설치 없이 바로 실행',
+    // choeae-app-1.2.0.exe는 73,286,939바이트
+    size: '약 70MB',
   },
   // 파일 이름이 이상해 보여도 실제 릴리스 에셋 이름이 이게 맞다.
   mac: {
     name: 'macOS',
     version: '1.0.8',
     url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.0.8/-1.0.0-arm64.dmg',
+    ext: '.dmg',
+    // -1.0.0-arm64.dmg는 95,415,579바이트
+    size: '약 91MB',
     note: 'Apple Silicon(M1 이후) 전용',
     // macOS용 새 디자인 버전을 올리면 이 줄과 버전·주소를 함께 바꾼다 (docs/release-checklist.md)
     soon: '새 디자인 버전은 곧 나와요',
@@ -30,6 +37,12 @@ export type DownloadOS = keyof typeof DOWNLOADS;
 export const downloadLabel = (os: DownloadOS) => `${DOWNLOADS[os].name}용 다운로드 v${DOWNLOADS[os].version}`;
 
 export const fileLinkLabel = (os: DownloadOS) => `${DOWNLOADS[os].name}용 파일 받기 v${DOWNLOADS[os].version}`;
+
+/** 다운로드 파일 이름 (주소의 마지막 조각) */
+export const fileName = (os: DownloadOS) => DOWNLOADS[os].url.split('/').pop() ?? '';
+
+/** 가장 최근 업데이트 기록 (latest: true) */
+export const LATEST_RELEASE = (): ReleaseNote | undefined => RELEASE_NOTES.find((note) => note.latest) ?? RELEASE_NOTES[0];
 
 export const THEME_STORAGE_KEY = 'choeae-theme';
 

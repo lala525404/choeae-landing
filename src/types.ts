@@ -7,6 +7,10 @@ export interface DownloadInfo {
   name: string;
   version: string;
   url: string;
+  /** 받는 파일 형식 (카드에 표시) */
+  ext: string;
+  /** 파일 크기 표기(대략). 새 버전을 올리면 GitHub 릴리스의 파일 크기를 보고 같이 고친다 */
+  size: string;
   /** 버튼 아래 작은 글씨 */
   note?: string;
   /** note 아래에 한 줄 더 붙이는 곧 나올 소식. 나오면 지운다 */

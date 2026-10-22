@@ -1,4 +1,5 @@
 # 랜딩페이지 디자인 지시서 (추가 규칙)
+> **참고**: 이 문서는 이전 스크롤형 랜딩의 디자인 규칙이에요. Tailwind·lucide는 3D 바탕화면 랜딩(`docs/landing-3d-impl.md`)에서 쓰지 않아요. 색 토큰 값과 버튼·글자 위계 원칙은 그대로 이어져요.
 
 **기준은 앱 지시서를 그대로 따른다:** `C:\Users\user\Downloads\nyang-pet-app\docs\ui-redesign-spec.md` (맨 아래 "추가 결정"·"미리보기 OK 후 결정" 포함).
 색 · 폰트(Pretendard, 박다현체는 로고만) · 모서리(16/10/999) · 1겹 · 포인트 색 1개 · 선 아이콘(lucide 1.5px) · AI 티 금지 목록 · 다크 수치는 재해석하지 않는다. 토큰 값은 `design-preview.html`의 `.f-root` 변수를 그대로 옮긴다.

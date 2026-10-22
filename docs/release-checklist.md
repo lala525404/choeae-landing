@@ -1,7 +1,7 @@
 # 릴리스 체크리스트 (앱 새 버전 → 랜딩 배포)
 
 앱 저장소(`nyang-pet-app`)에서 새 버전의 GitHub 릴리스를 올린 뒤, 랜딩(`choeae-landing`)에 반영하는 순서예요.
-기준: 앱 저장소 `release\RELEASE_NOTES_v<버전>.md`. 마지막으로 이 순서대로 진행한 버전은 **v1.1.1 (Windows, 2026-10-21)**이에요.
+기준: 앱 저장소 `release\RELEASE_NOTES_v<버전>.md`. 마지막으로 이 순서대로 진행한 버전은 **v1.1.1 (Windows, 2026-10-21)**이에요. 3D 바탕화면 랜딩(`feature/landing-3d-impl`)부터는 화면 구조가 `src/landing/`로 바뀌었어요(설명: `docs/landing-3d-impl.md`).
 
 ## 0. 시작 전 (앱 쪽)
 - [ ] 앱 `main`에 머지돼 있고, 태그 `v<버전>`이 그 커밋을 가리켜요. (`git ls-remote --tags origin v<버전>`)
@@ -12,10 +12,10 @@
 
 ## 1. 랜딩 수정 (`redesign` 브랜치에서)
 다운로드 버전과 주소는 **`src/constants.ts`의 `DOWNLOADS` 한 곳**만 고쳐요. 버튼 라벨, 설치 안내, 업데이트 내역 머리 안내, noscript 요약이 여기서 나와요.
-- [ ] `DOWNLOADS.windows`의 `version`, `url`
+- [ ] `DOWNLOADS.windows`의 `version`, `url`, `size`(약 몇 MB, 1단계 0번에서 적어 둔 파일 크기를 반올림)
 - [ ] `RELEASE_NOTES` 맨 위에 새 버전 항목 추가. 앱의 `RELEASE_NOTES_v<버전>.md`를 그대로 옮겨요(SmartScreen 안내 문단과 백틱만 뺌).
   - 이전 버전의 `latest: true`를 지우고 새 버전에만 붙여요. 날짜는 `YYYY.MM.DD`.
-  - 항목의 `**굵게**` 표기는 `Updates.tsx`가 그대로 보여 줘요.
+  - 항목의 `**굵게**` 표기는 `src/landing/windows.tsx`의 업데이트 타임라인이 그대로 보여 줘요.
 - [ ] 같은 내용을 `docs/landing-copy.md` 7장에도 남겨요.
 - [ ] 개인정보처리방침·이용약관 시행일(`public/privacy.html`, `public/terms.html`의 `시행일:`)을 바꿀 일이 있으면 바꿔요. 내용이 바뀌지 않았다면 그대로 둬요.
 - [ ] 새 문구의 글자가 Pretendard 서브셋에 있는지 확인해요. 빠지면 그 글자만 다른 글꼴로 보여요.
@@ -28,8 +28,8 @@
 - [ ] `VITE_SITE_URL=https://choeae-landing.vercel.app npm run build` (값이 비면 canonical·og·sitemap이 빠져요)
 - [ ] `dist/index.html`에 canonical, og:url, og:image가 있고, `dist/sitemap.xml`에 5개 페이지, `dist/robots.txt`에 `Allow: /`와 `Sitemap:` 줄이 있어요.
   - `VERCEL_ENV=preview`로 빌드하면 모든 HTML에 noindex가 붙고 robots가 `Disallow: /`가 돼요(미리보기 전용). 운영 빌드에서는 없어야 해요.
-- [ ] 화면 확인: 히어로·마지막 다운로드 버튼 라벨(`Windows용 다운로드 v…`), 맥 버튼 아래 안내, 설치 탭, 업데이트 내역 맨 위(최신 배지 1개), 헤더·푸터 하트 로고, 375px·1280px에서 가로 스크롤 없음.
-- [ ] 링크 확인: 페이지 안의 모든 외부 링크가 200이고 `#top #features #install #updates #faq #download` 대상이 있어요.
+- [ ] 화면 확인(`?intro=0`으로 인트로를 건너뛰면 편해요): 인트로·히어로의 "바로 다운받기" 아래 글씨, 다운로드 화면의 OS 카드(버전·크기·상태)와 `Windows용 다운로드 v…` 버튼, 설치 자세히 탭, 업데이트 타임라인 맨 위(최신 표시 1개), 390px·1280px에서 가로 스크롤 없음.
+- [ ] 링크 확인: 페이지 안의 모든 외부 링크가 200이고 `#intro #hero #index #start #features #download #updates #faq #privacy` 대상이 있어요.
 
 ## 3. 커밋·머지·배포
 - [ ] `redesign`에 커밋하고 push해요(Vercel 미리보기 배포는 noindex).
@@ -56,8 +56,8 @@
   - `version: '1.0.8'` → `'1.1.1'`
   - `url` → `https://github.com/lala525404/nyang-pet-app/releases/download/v1.1.1/choeae-app-1.1.1-arm64.dmg` (v1.0.8의 `-1.0.0-arm64.dmg`처럼 이름이 이상하지 않은지 실제 에셋 이름으로 확인)
   - `soon: '새 디자인 버전은 곧 나와요'` 줄 **삭제**(없으면 맥 버튼 아래 안내가 사라져요)
-- [ ] **`src/components/Install.tsx`** 맥 탭 아래 `macOS용 새 디자인 버전(v…)은 준비 중이에요…` 문단 **삭제**(주석 "macOS가 Windows보다 늦는 동안만 쓰는 안내"로 표시돼 있어요).
-- [ ] **`src/components/AppScreens.tsx`** `intro`: `아래는 Windows v1.1.1의 설정창이에요. macOS는 새 디자인 버전이 곧 나와요.` → `아래는 v1.1.1의 설정창이에요.`
+- [ ] 같은 `DOWNLOADS.mac`의 `size`도 새 dmg 크기에 맞춰요. `soon`을 지우면 다운로드 화면의 macOS 카드가 "새 디자인 버전은 곧 나와요" 대신 "받을 수 있어요"로 바뀌고, 인트로·히어로의 "바로 다운받기" 아래 글씨(맥 접속 시)도 `macOS v… · 무료`로 바뀌어요.
+- [ ] 이 외에 화면 안 문구를 따로 고칠 곳은 없어요(다운로드 화면·인덱스·인트로의 버전 표기는 모두 `src/constants.ts`에서 나와요).
 - [ ] **`src/constants.ts` → `RELEASE_NOTES`의 v1.1.1 `note`** 맨 아래 줄 `macOS 버전은 곧 추가됩니다.` → `macOS: choeae-app-1.1.1-arm64.dmg (Apple Silicon 전용)` 처럼 다운로드 안내로.
   - 앱 GitHub 릴리스 본문도 같은 줄로 바꿔요(`release\RELEASE_NOTES_v1.1.1.md`).
   - v1.1.0 항목의 같은 줄은 그 버전 당시 기록이라 그대로 둬도 돼요.

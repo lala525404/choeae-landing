@@ -1,7 +1,9 @@
-import {useState} from 'react';
+import {useSyncExternalStore} from 'react';
 import type {Platform} from '../types';
 
-function detectPlatform(): Platform {
+export function detectPlatform(): Platform {
+  // 빌드 때 첫 화면을 미리 그릴 때는 navigator가 없다(기본 Windows)
+  if (typeof navigator === 'undefined') return 'windows';
   const ua = navigator.userAgent;
   if (/Android|iPhone|iPad|iPod/i.test(ua)) return 'mobile';
   if (/Macintosh|Mac OS X/i.test(ua)) {
@@ -11,8 +13,13 @@ function detectPlatform(): Platform {
   return 'windows';
 }
 
-/** 접속한 기기: 기본은 Windows, 맥이면 mac, 폰·태블릿이면 mobile */
+const subscribe = () => () => {};
+const serverPlatform = (): Platform => 'windows';
+
+/**
+ * 접속한 기기: 기본은 Windows, 맥이면 mac, 폰·태블릿이면 mobile.
+ * 미리 그려 둔 HTML(Windows 기준)과 맞춰 시작하고, 화면이 붙은 뒤에 실제 기기 값으로 바뀐다.
+ */
 export function usePlatform(): Platform {
-  const [platform] = useState(detectPlatform);
-  return platform;
+  return useSyncExternalStore(subscribe, detectPlatform, serverPlatform);
 }
