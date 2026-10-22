@@ -104,4 +104,4 @@
 6. 중복 페이지 `choeae-about/faq/privacy/terms.html` 삭제. 이미 검색에 잡혔을 수 있으므로 vercel.json에서 각각 `/about.html`, `/faq.html`, `/privacy.html`, `/terms.html`로 301 리다이렉트.
 
 ## 부록. 랜딩 3D 바탕화면 예외 (제안, 승인 전)
-첫 화면 연출과 바탕화면 창 연출에 한해 "네모 안에 네모 금지, 플랫" 예외를 두는 안은 `docs/landing-3d-spec.md` 9절에 있다. 승인되기 전까지 이 문서의 규칙은 그대로다.
+첫 화면 연출과 바탕화면 창 연출에 한해 "네모 안에 네모 금지, 플랫" 예외를 두는 안은 `docs/landing-3d-spec.md` 15절에 있다. 승인되기 전까지 이 문서의 규칙은 그대로다.
