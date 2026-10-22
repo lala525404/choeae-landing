@@ -55,8 +55,8 @@
 - [ ] **`src/constants.ts` → `DOWNLOADS.mac`**
   - `version: '1.0.8'` → `'1.1.1'`
   - `url` → `https://github.com/lala525404/nyang-pet-app/releases/download/v1.1.1/choeae-app-1.1.1-arm64.dmg` (v1.0.8의 `-1.0.0-arm64.dmg`처럼 이름이 이상하지 않은지 실제 에셋 이름으로 확인)
-  - `soon: '새 디자인 버전은 곧 나와요'` 줄 **삭제**(없으면 맥 버튼 아래 안내가 사라져요)
-- [ ] 같은 `DOWNLOADS.mac`의 `size`도 새 dmg 크기에 맞춰요. `soon`을 지우면 다운로드 화면의 macOS 카드가 "새 디자인 버전은 곧 나와요" 대신 "받을 수 있어요"로 바뀌고, 인트로·히어로의 "바로 다운받기" 아래 글씨(맥 접속 시)도 `macOS v… · 무료`로 바뀌어요.
+  - `soon` 필드는 v1.3.0에서 코드와 함께 없앴어요. 지금은 `DOWNLOADS.mac`에 "곧 나와요" 안내를 따로 붙이는 줄이 없고, 맥 카드는 항상 "받을 수 있어요"로 나와요.
+- [ ] 같은 `DOWNLOADS.mac`의 `size`도 새 dmg 크기에 맞춰요. 인트로·히어로의 "바로 다운받기" 아래 글씨(맥 접속 시)는 `macOS v… · 무료`로 `version`을 따라가요.
 - [ ] 이 외에 화면 안 문구를 따로 고칠 곳은 없어요(다운로드 화면·인덱스·인트로의 버전 표기는 모두 `src/constants.ts`에서 나와요).
 - [ ] **`src/constants.ts` → `RELEASE_NOTES`의 v1.1.1 `note`** 맨 아래 줄 `macOS 버전은 곧 추가됩니다.` → `macOS: choeae-app-1.1.1-arm64.dmg (Apple Silicon 전용)` 처럼 다운로드 안내로.
   - 앱 GitHub 릴리스 본문도 같은 줄로 바꿔요(`release\RELEASE_NOTES_v1.1.1.md`).
