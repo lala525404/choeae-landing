@@ -11,11 +11,11 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
-    version: '1.4.1',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.4.1/choeae-app-Setup-1.4.1.exe',
+    version: '1.5.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.5.0/choeae-app-Setup-1.5.0.exe',
     ext: '.exe',
     note: '설치 파일',
-    // choeae-app-Setup-1.4.1.exe는 82,024,225바이트
+    // choeae-app-Setup-1.5.0.exe는 82,028,655바이트
     size: '약 78MB',
   },
   mac: {
@@ -163,9 +163,24 @@ export const MAC_STEPS: InstallStep[] = [
 /** 새 버전일수록 위. folded는 "이전 버전 더 보기"를 누르기 전까지 접는다. 근거는 GitHub 릴리스 본문이고, 날짜는 원문에 있는 것만 적는다. */
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: 'v1.5.0',
+    title: '평소 말풍선에 날씨 안부가 가끔 섞여 나오고, 초집중 모드에서 남은 근무시간을 볼 수 있어요.',
+    latest: true,
+    groups: [
+      {
+        label: '새로 생겼어요',
+        items: [
+          '**날씨 안부**: 동네를 정하면 평소 말풍선 사이에 "지금은 6도예요", "퇴근길에 비 올 것 같아요" 같은 날씨 한마디가 가끔 섞여 나와요. 점심·퇴근 예보는 홈의 점심·퇴근 시간 설정을 따라요.',
+          '**동네 고르기와 개인정보**: 동네 이름이나 초성으로 찾아요. 고르면 안내가 한 번 나오고, [좋아요]를 눌러야만 저장돼요. 그 동네의 대략적인 좌표만 날씨 서비스(Open-Meteo)로 전송되고, 이름·사진·알람 같은 정보는 보내지 않아요. 언제든 [지우기]로 삭제하고 동의를 철회할 수 있어요.',
+          '**초집중 모드 남은 근무시간**: 시계 아래에 하루 진행바와 "퇴근까지 2시간 15분"이 작게 보여요.',
+        ],
+      },
+    ],
+    note: 'Windows: choeae-app-Setup-1.5.0.exe (설치 파일)\n날씨 데이터: Open-Meteo (CC BY 4.0)\nmacOS 버전은 곧 추가돼요.',
+  },
+  {
     version: 'v1.4.1',
     title: '홈 화면을 정리하고, 새 알람 기본값과 업데이트 확인 결과를 더 알기 쉽게 바꿨어요.',
-    latest: true,
     groups: [
       {
         label: '좋아졌어요',
@@ -503,6 +518,17 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     question: '올린 사진은 어디에 저장되나요?',
     answer: ['내 사진과 설정은 내 컴퓨터에만 저장돼요.'],
+  },
+  {
+    question: '날씨 안부는 어떻게 나오나요? 내 정보가 전송되나요?',
+    answer: [
+      '설정의 말풍선에서 동네를 고르면 평소 말풍선 사이에 가끔 "지금은 6도예요", "퇴근길에 비 올 것 같아요, 우산 챙겨요 ☔" 같은 날씨 한마디가 섞여 나와요. 동네를 고르기 전에는 나오지 않아요.',
+      '동네를 고르고 [좋아요]를 누르면 그 동네의 대략적인 좌표만 날씨 서비스(Open-Meteo)로 전송돼요. 이름, 사진, 알람 같은 정보는 보내지 않고, 동의하기 전에는 아무것도 보내지 않아요. [지우기]를 누르면 동네가 삭제되고 동의도 철회돼요.',
+    ],
+  },
+  {
+    question: '초집중 모드에서 남은 근무시간이 보이나요?',
+    answer: ['네, 초집중 모드에서는 시계 아래에 하루 진행바와 "퇴근까지 2시간 15분"이 작게 보여요. 홈에 정해 둔 근무 시작 시간과 퇴근 시간을 기준으로 해요.'],
   },
   {
     question: '회사 컴퓨터에 깔아도 되나요?',
