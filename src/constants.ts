@@ -20,10 +20,10 @@ export const DOWNLOADS = {
   },
   mac: {
     name: 'macOS',
-    version: '1.4.0',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.4.0/choeae-app-1.4.0-arm64.dmg',
+    version: '1.5.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.5.0/choeae-app-1.5.0-arm64.dmg',
     ext: '.dmg',
-    // choeae-app-1.4.0-arm64.dmg는 100,928,643바이트
+    // choeae-app-1.5.0-arm64.dmg는 100,946,082바이트
     size: '약 96MB',
     note: 'Apple Silicon(M1 이후) 전용',
   },
@@ -176,7 +176,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
         ],
       },
     ],
-    note: 'Windows: choeae-app-Setup-1.5.0.exe (설치 파일)\n날씨 데이터: Open-Meteo (CC BY 4.0)\nmacOS 버전은 곧 추가돼요.',
+    note: 'Windows: choeae-app-Setup-1.5.0.exe (설치 파일)\nmacOS: choeae-app-1.5.0-arm64.dmg (Apple Silicon 전용)\n날씨 데이터: Open-Meteo (CC BY 4.0)',
   },
   {
     version: 'v1.4.1',
@@ -192,7 +192,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
         ],
       },
     ],
-    note: 'Windows: choeae-app-Setup-1.4.1.exe (설치 파일)\nmacOS 버전은 곧 추가돼요.',
+    note: 'Windows: choeae-app-Setup-1.4.1.exe (설치 파일)',
   },
   {
     version: 'v1.4.0',
@@ -257,7 +257,7 @@ ${AUTO_UPDATE_NOTICE}`,
         ],
       },
     ],
-    note: 'Windows: choeae-app-1.2.0.exe (설치 없이 바로 실행)\nmacOS 버전은 곧 추가됩니다.',
+    note: 'Windows: choeae-app-1.2.0.exe (설치 없이 바로 실행)',
   },
   {
     version: 'v1.1.1',
@@ -280,7 +280,7 @@ ${AUTO_UPDATE_NOTICE}`,
         ],
       },
     ],
-    note: 'Windows: choeae-app-1.1.1.exe (설치 없이 바로 실행)\nmacOS 버전은 곧 추가됩니다.',
+    note: 'Windows: choeae-app-1.1.1.exe (설치 없이 바로 실행)',
   },
   {
     version: 'v1.1.0',
@@ -318,7 +318,7 @@ ${AUTO_UPDATE_NOTICE}`,
         ],
       },
     ],
-    note: 'Windows: choeae-app-1.1.0.exe (설치 없이 바로 실행)\nmacOS 버전은 곧 추가됩니다.',
+    note: 'Windows: choeae-app-1.1.0.exe (설치 없이 바로 실행)',
   },
   {
     version: 'v1.0.9',
