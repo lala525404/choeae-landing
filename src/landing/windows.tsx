@@ -9,6 +9,7 @@ import {
   RELEASE_NOTES,
   SCREEN_FEATURES,
   MAC_STEPS,
+  UPDATE_GUIDE,
   WINDOWS_STEPS,
   downloadLabel,
   fileLinkLabel,
@@ -265,6 +266,10 @@ function OsWindow() {
         <OsCard os="windows" primary={platform !== 'mac' && platform !== 'mobile'} />
         <OsCard os="mac" primary={platform === 'mac'} />
       </div>
+      <p className="notice" role="note">
+        <Icon n="arrowup" />
+        <span>{UPDATE_GUIDE}</span>
+      </p>
       <div className="gl">설치는 이렇게</div>
       <ol className="flow">
         <li>
@@ -307,9 +312,6 @@ function OsWindow() {
       </ol>
       <p className="sub" style={{marginTop: 10}}>
         macOS는 .dmg를 열고 앱을 응용 프로그램 폴더로 끌어 놓아요. <b>무료</b>이고 앱 안에는 광고가 없어요.
-      </p>
-      <p className="sub" style={{marginTop: 6}}>
-        {AUTO_UPDATE_NOTICE}
       </p>
       <div className="gl">다 받았다면</div>
       <div className="links" style={{marginTop: 0}}>

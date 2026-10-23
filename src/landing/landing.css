@@ -257,6 +257,8 @@ details p { padding-bottom: 12px; color: var(--sub); font-size: 14px; }
 .cap { margin-top: 8px; color: var(--sub); font-size: 13px; line-height: 1.55; }
 .pre { white-space: pre-line; }
 .sub b, .cap b { display: inline; }
+.notice { display: flex; gap: 10px; align-items: flex-start; margin-top: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--item); font-size: 13px; line-height: 1.55; }
+.notice svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }
 .gl { font-size: 12px; font-weight: 700; color: var(--sub); margin: 10px 0 4px; }
 
 /* ── 인트로 장식(인트로에서만 쓰는 예외): 떠다니는 별·하트, 반짝이는 가루, 이름 주변 반짝임, 지나가는 펫 실루엣 ── */
