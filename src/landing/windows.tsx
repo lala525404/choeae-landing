@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react';
 import {
+  AUTO_UPDATE_NOTICE,
   CONTACT_HREF,
   DOWNLOADS,
   FAQ_ITEMS,
@@ -103,7 +104,7 @@ function StartSteps() {
             <h4>설치</h4>
           </div>
           <SceneInstall file={fileName('windows')} />
-          <p>받은 파일을 더블클릭해요. 설치 없이 바로 실행돼요.</p>
+          <p>받은 설치 파일을 실행해요. 설치되고 바로 켜져요.</p>
         </li>
         <li className="sc">
           <div className="sh">
@@ -125,6 +126,9 @@ function StartSteps() {
       <p className="sub" style={{marginTop: 12}}>
         "Windows의 PC 보호" 창이 뜨면 <b>추가 정보</b> → <b>실행</b>을 눌러요. 처음 받는 앱에는 이 창이 뜰 수 있어요.
       </p>
+      <p className="sub" style={{marginTop: 6}}>
+        {AUTO_UPDATE_NOTICE}
+      </p>
     </>
   );
 }
@@ -136,7 +140,7 @@ function StartDetail() {
     <>
       <Tabs id="ins" labels={['Windows', 'macOS']} panels={[<Steps items={WINDOWS_STEPS} />, <Steps items={MAC_STEPS} />]} />
       <p className="sub" style={{marginTop: 12}}>
-        내 컴퓨터에 맞는 쪽이 먼저 열려요.
+        내 컴퓨터에 맞는 쪽이 먼저 열려요. {AUTO_UPDATE_NOTICE}
       </p>
       <div className="gl">켠 다음에는</div>
       {faqBy(/사라졌어요|숨기거나/).map((i) => (
@@ -276,9 +280,9 @@ function OsWindow() {
           <span className="ic">
             <Icon n="click" />
           </span>
-          더블클릭
+          설치 파일 실행
           <br />
-          설치 없이 실행
+          설치 후 바로 켜짐
         </li>
         <li className="ar" aria-hidden="true">
           →
@@ -303,6 +307,9 @@ function OsWindow() {
       </ol>
       <p className="sub" style={{marginTop: 10}}>
         macOS는 .dmg를 열고 앱을 응용 프로그램 폴더로 끌어 놓아요. <b>무료</b>이고 앱 안에는 광고가 없어요.
+      </p>
+      <p className="sub" style={{marginTop: 6}}>
+        {AUTO_UPDATE_NOTICE}
       </p>
       <div className="gl">다 받았다면</div>
       <div className="links" style={{marginTop: 0}}>

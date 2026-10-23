@@ -11,19 +11,19 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
-    version: '1.3.0',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.3.0/choeae-app-1.3.0.exe',
+    version: '1.4.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.4.0/choeae-app-Setup-1.4.0.exe',
     ext: '.exe',
-    note: '설치 없이 바로 실행',
-    // choeae-app-1.3.0.exe는 73,410,054바이트
-    size: '약 70MB',
+    note: '설치 파일',
+    // choeae-app-Setup-1.4.0.exe는 82,024,298바이트
+    size: '약 78MB',
   },
   mac: {
     name: 'macOS',
-    version: '1.3.0',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.3.0/choeae-app-1.3.0-arm64.dmg',
+    version: '1.4.0',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.4.0/choeae-app-1.4.0-arm64.dmg',
     ext: '.dmg',
-    // choeae-app-1.3.0-arm64.dmg는 100,432,525바이트
+    // choeae-app-1.4.0-arm64.dmg는 100,928,643바이트
     size: '약 96MB',
     note: 'Apple Silicon(M1 이후) 전용',
   },
@@ -126,22 +126,29 @@ export const FEATURE_LIST: Feature[] = [
   },
 ];
 
+/** 다운로드·설치 안내 공통 문구. 자동 업데이트가 들어간 첫 버전이라 한 번은 직접 설치해야 한다. */
+export const AUTO_UPDATE_NOTICE = '자동 업데이트가 들어간 첫 버전이라 이번 한 번만 직접 설치하면, 이후부터는 앱 안에서 업데이트돼요.';
+
 export const WINDOWS_STEPS: InstallStep[] = [
   {title: '받기', text: '위의 Windows용 다운로드 버튼으로 파일(.exe)을 받아요.', download: 'windows'},
   {
-    title: '실행',
-    // 앱 v1.0.9 package.json의 win target이 portable이라 설치 없이 실행으로 적었다.
-    text: '받은 파일을 더블클릭해요. 따로 설치하지 않고 바로 실행돼요.',
+    title: '설치',
+    // v1.4.0부터 설치형(Setup) 파일이다. v1.3.0까지는 포터블(exe)이었다.
+    text: '받은 설치 파일을 실행하면 설치되고 바로 켜져요.',
   },
   {
     title: 'SmartScreen 안내',
     text: '"Windows의 PC 보호" 창이 뜨면 **추가 정보**를 누른 뒤 **실행**을 눌러요. 처음 받는 앱에는 이 창이 뜰 수 있어요.',
   },
+  {
+    title: '쓰던 분은',
+    text: '포터블(exe)을 쓰던 분도 새 설치 파일을 한 번 설치하면 알람과 펫 설정이 그대로 이어져요. 포터블 exe는 지워도 돼요.',
+  },
 ];
 
 export const MAC_STEPS: InstallStep[] = [
   {title: '받기', text: 'macOS용 다운로드 버튼으로 파일(.dmg)을 받아요.', download: 'mac'},
-  {title: '옮기기', text: '받은 파일을 열고 앱을 응용 프로그램 폴더로 끌어 놓아요.'},
+  {title: '옮기기', text: '받은 파일을 열고 앱을 응용 프로그램 폴더로 끌어 놓아요. 응용 프로그램 폴더로 옮겨서 실행해 주세요.'},
   {
     title: '처음 열 때',
     // TODO(확인 필요): Apple 서명·공증 여부. 앱 package.json에 서명·공증 설정이 없어 지금은 이 안내가 맞다.
@@ -152,9 +159,26 @@ export const MAC_STEPS: InstallStep[] = [
 /** 새 버전일수록 위. folded는 "이전 버전 더 보기"를 누르기 전까지 접는다. 근거는 GitHub 릴리스 본문이고, 날짜는 원문에 있는 것만 적는다. */
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: 'v1.4.0',
+    title: '새 버전이 나오면 앱 안에서 바로 업데이트하고, 컴퓨터를 켜면 자동으로 실행돼요.',
+    latest: true,
+    groups: [
+      {
+        label: '새로 생겼어요',
+        items: [
+          '**자동 업데이트**: 새 버전이 나오면 알림이 떠요. 앱 안에서 바로 업데이트할 수 있어요.',
+          '**컴퓨터를 켜면 자동 실행**: 선택해서 켜 두면 컴퓨터를 켤 때 앱이 같이 실행돼요.',
+          '**초집중 모드**: 한자리에서 조금만 움직이고 시계만 보여 줘요. 알람은 그대로 울려요.',
+        ],
+      },
+    ],
+    note: `Windows: choeae-app-Setup-1.4.0.exe (설치 파일)
+macOS: choeae-app-1.4.0-arm64.dmg
+${AUTO_UPDATE_NOTICE}`,
+  },
+  {
     version: 'v1.3.0',
     title: '알람에 이름·시간 범위·참석자·메모를 적고, 요일 반복과 주간 캘린더로 한눈에 볼 수 있어요.',
-    latest: true,
     groups: [
       {
         label: '새로 생겼어요',
