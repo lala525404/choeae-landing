@@ -11,11 +11,11 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
-    version: '1.4.0',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.4.0/choeae-app-Setup-1.4.0.exe',
+    version: '1.4.1',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.4.1/choeae-app-Setup-1.4.1.exe',
     ext: '.exe',
     note: '설치 파일',
-    // choeae-app-Setup-1.4.0.exe는 82,024,298바이트
+    // choeae-app-Setup-1.4.1.exe는 82,024,225바이트
     size: '약 78MB',
   },
   mac: {
@@ -163,9 +163,25 @@ export const MAC_STEPS: InstallStep[] = [
 /** 새 버전일수록 위. folded는 "이전 버전 더 보기"를 누르기 전까지 접는다. 근거는 GitHub 릴리스 본문이고, 날짜는 원문에 있는 것만 적는다. */
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: 'v1.4.1',
+    title: '홈 화면을 정리하고, 새 알람 기본값과 업데이트 확인 결과를 더 알기 쉽게 바꿨어요.',
+    latest: true,
+    groups: [
+      {
+        label: '좋아졌어요',
+        items: [
+          '**홈 화면 정리**: 홈에는 시간 설정만 남기고, 점심·퇴근 알림 설정은 알람 탭으로 옮겼어요.',
+          '**새 알람 기본값**: 새 알람을 만들면 오늘 날짜에 한 번, 지금 이후 가장 가까운 30분으로 채워져요.',
+          '**사진 설정 정리**: 사진 설정을 한 줄로 깔끔하게 정리했어요.',
+          '**업데이트 확인 결과 구분**: 최신이면 "최신 버전이에요 :)"라고 알려 주고, 확인하지 못하면 "다시 확인"을 눌러 볼 수 있어요.',
+        ],
+      },
+    ],
+    note: 'Windows: choeae-app-Setup-1.4.1.exe (설치 파일)\nmacOS 버전은 곧 추가돼요.',
+  },
+  {
     version: 'v1.4.0',
     title: '새 버전이 나오면 앱 안에서 바로 업데이트하고, 컴퓨터를 켜면 자동으로 실행돼요.',
-    latest: true,
     groups: [
       {
         label: '새로 생겼어요',
