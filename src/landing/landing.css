@@ -549,16 +549,19 @@ h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 
 /* ── 창 안 등장 모션 (engine/motion.ts). 아래 규칙은 클래스가 붙은 동안만 적용되고, 클래스가 없는 상태가 최종 레이아웃이다.
       transform/opacity만 움직인다. --cn-k 는 ?slow= 배율 ── */
-.ib[hidden], #cn-skip[hidden], .cn-veil[hidden] { display: none; }
+.ib[hidden], #cn-ctl[hidden], .cn-veil[hidden] { display: none; }
 .ib[data-act=replay]:disabled { opacity: .35; cursor: default; }
 .ib[data-act=replay]:disabled:hover { background: transparent; }
 .cn-veil { position: absolute; inset: 0; z-index: 40; background: rgba(0, 0, 0, .3); opacity: 0; transition: opacity calc(.25s * var(--cn-k, 1)) ease; }
 .cn-veil.on { opacity: 1; }
-#cn-skip { position: fixed; right: 16px; bottom: 16px; z-index: 100; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); font-size: 13px; font-weight: 600; box-shadow: var(--shadow); }
+/* 재생이 길어서(기능 약 16초) 건너뛰기는 채운 알약으로 눈에 띄게, 몇 번째 카드인지는 그 옆에 */
+#cn-ctl { position: fixed; right: 16px; bottom: 16px; z-index: 100; display: flex; align-items: center; gap: 8px; }
+#cn-count { min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; font-variant-numeric: tabular-nums; box-shadow: var(--shadow); }
+#cn-skip { min-height: 38px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--win); font-size: 14px; font-weight: 700; box-shadow: var(--shadow); }
 .win.cn-lift { z-index: 60 !important; overflow: visible; }
 .win.cn-lift .body, .win.cn-lift .body > div { overflow: visible; }
-.cn-on [data-cn-card] { position: relative; opacity: .25; transform: scale(.94); transition: transform calc(var(--cn-zoom, 350ms) * var(--cn-k, 1)) var(--ease), opacity calc(var(--cn-zoom, 350ms) * var(--cn-k, 1)) var(--ease); will-change: transform, opacity; }
-.cn-on [data-cn-card].cn-up { z-index: 3; opacity: 1; transform: translate(var(--cn-x, 0), var(--cn-y, 0)) scale(var(--cn-s, 1.35)); }
+.cn-on [data-cn-card] { position: relative; opacity: .25; transform: scale(.94); transition: transform calc(var(--cn-out, 350ms) * var(--cn-k, 1)) var(--ease), opacity calc(var(--cn-out, 350ms) * var(--cn-k, 1)) var(--ease); will-change: transform, opacity; }
+.cn-on [data-cn-card].cn-up { transition-duration: calc(var(--cn-in, 350ms) * var(--cn-k, 1)); z-index: 3; opacity: 1; transform: translate(var(--cn-x, 0), var(--cn-y, 0)) scale(var(--cn-s, 1.35)); }
 .cn-on [data-cn-card].cn-done { opacity: 1; transform: none; }
 .cn-sm [data-cn-card], .cn-sm [data-cn-card].cn-up, .cn-sm [data-cn-card].cn-done { transform: none; }
 .cn-on .sc:not(:last-child)::after { opacity: .2; transition: opacity calc(.3s * var(--cn-k, 1)) ease; }

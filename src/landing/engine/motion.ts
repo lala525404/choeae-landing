@@ -7,27 +7,32 @@ import {$, $$, type Ctx} from './core';
 
 /** 시간은 모두 ms. 쿼리 ?slow=4 는 ctx.ms와 CSS(--cn-k) 양쪽에서 같은 배율로 느려진다 */
 interface CardsProfile {
+  /** 확대(--cn-in)·축소(--cn-out) 이동 시간 */
+  expandMs: number;
+  shrinkMs: number;
   /** 카드 한 장의 타이핑 목표 시간. 글자당 지연은 이 값을 글자 수로 나눠 [minChar, maxChar]로 자른다 */
   typeMs: number;
   minChar: number;
   maxChar: number;
-  /** 확대·축소 이동 시간(--cn-zoom으로 CSS에 넘긴다) */
-  zoomMs: number;
   /** 확대가 시작되고 타이핑이 시작되기까지 */
   typeLead: number;
-  /** 타이핑이 끝난 뒤 유지 */
+  /** 타이핑이 끝난 뒤 유지(읽는 시간). 16자를 넘는 글자마다 holdPerCharMs를 더하되 holdMaxMs를 넘지 않는다 */
   holdMs: number;
+  holdPerCharMs: number;
+  holdMaxMs: number;
+  /** 축소가 끝나기 이만큼 전에 다음 카드가 확대를 시작한다 */
+  overlapMs: number;
   scale: number;
   /** 확대한 카드를 창 안쪽으로 보정할지(false면 화면 가운데로) */
   inWin: boolean;
-  /** 좁은 화면(확대 없이 하이라이트 + 타이핑): 타이핑 시간, 시작 지연, 다음 카드까지 간격 */
-  small: {typeMs: number; typeLead: number; gapMs: number};
+  /** 좁은 화면(확대 없이 하이라이트 + 타이핑): 타이핑 시간, 시작 지연, 유지, 다음 카드까지 간격 */
+  small: {typeMs: number; typeLead: number; holdMs: number; gapMs: number};
 }
 const PROFILES: Record<'steps' | 'grid', CardsProfile> = {
   /** "처음이신가요?" 3장: 카드당 약 2.1초 */
-  steps: {typeMs: 1200, minChar: 18, maxChar: 70, zoomMs: 350, typeLead: 150, holdMs: 400, scale: 1.35, inWin: false, small: {typeMs: 1200, typeLead: 150, gapMs: 80}},
-  /** "기능" 8장: 카드당 약 0.9초(전체 약 7.7초). 좁은 화면은 카드당 0.7초 */
-  grid: {typeMs: 500, minChar: 6, maxChar: 40, zoomMs: 250, typeLead: 50, holdMs: 100, scale: 1.25, inWin: true, small: {typeMs: 450, typeLead: 0, gapMs: 150}},
+  steps: {expandMs: 350, shrinkMs: 350, typeMs: 1200, minChar: 18, maxChar: 70, typeLead: 150, holdMs: 400, holdPerCharMs: 0, holdMaxMs: 400, overlapMs: 0, scale: 1.35, inWin: false, small: {typeMs: 1200, typeLead: 150, holdMs: 400, gapMs: 80}},
+  /** "기능" 8장: 읽을 수 있게 카드당 약 2초(전체 약 16초). 속도는 여기 한 곳에서 조절한다. 좁은 화면은 카드당 약 1.45초 */
+  grid: {expandMs: 300, shrinkMs: 250, typeMs: 900, minChar: 6, maxChar: 45, typeLead: 300, holdMs: 700, holdPerCharMs: 10, holdMaxMs: 1100, overlapMs: 100, scale: 1.25, inWin: true, small: {typeMs: 800, typeLead: 0, holdMs: 500, gapMs: 150}},
 };
 /** 첫 카드 전 배경 막이 깔리는 시간, 마지막 카드 뒤 막이 걷히는 시간(CSS --cn-veil과 같아야 한다) */
 const VEIL_MS = 250;
@@ -68,7 +73,9 @@ export function initMotion(ctx: Ctx) {
 
   const wins = $$('.win[data-motion]');
   const replays = $$<HTMLButtonElement>('[data-act=replay]');
+  const ctl = $('#cn-ctl'); // 건너뛰기 버튼 + 몇 번째 카드인지 보여 주는 진행 표시
   const skipBtn = $<HTMLButtonElement>('#cn-skip');
+  const count = $('#cn-count');
   let cur: Play | null = null;
   let lastInput = -1e9;
 
@@ -101,7 +108,8 @@ export function initMotion(ctx: Ctx) {
       over = true;
       ids.forEach(clearTimeout);
       win.classList.remove('cn-on', 'cn-lift', 'cn-sm', 'st-on');
-      win.style.removeProperty('--cn-zoom');
+      win.style.removeProperty('--cn-in');
+      win.style.removeProperty('--cn-out');
       win.style.removeProperty('--cn-s');
       cards.forEach((c) => {
         c.classList.remove('cn-up', 'cn-typing', 'cn-done');
@@ -115,7 +123,7 @@ export function initMotion(ctx: Ctx) {
           if (!cur) veil.hidden = true;
         }, ctx.ms(VEIL_MS));
       }
-      skipBtn.hidden = true;
+      ctl.hidden = true;
       replays.forEach((b) => (b.disabled = false));
       cur = null;
     };
@@ -129,8 +137,10 @@ export function initMotion(ctx: Ctx) {
       return;
     }
 
-    skipBtn.hidden = false;
-    win.style.setProperty('--cn-zoom', P.zoomMs + 'ms');
+    count.textContent = `1 / ${cards.length}`;
+    ctl.hidden = false;
+    win.style.setProperty('--cn-in', P.expandMs + 'ms');
+    win.style.setProperty('--cn-out', P.shrinkMs + 'ms');
     win.style.setProperty('--cn-s', String(P.scale));
     win.classList.add('cn-on', 'cn-lift');
     if (small) win.classList.add('cn-sm'); // 좁은 화면: 확대 없이 해당 카드 하이라이트 + 타이핑
@@ -146,6 +156,7 @@ export function initMotion(ctx: Ctx) {
         return;
       }
       const c = cards[i];
+      count.textContent = `${i + 1} / ${cards.length}`;
       const text = c.querySelector('p')?.textContent ?? '';
       const chars = [...text].length;
       const lead = small ? P.small.typeLead : P.typeLead;
@@ -169,14 +180,14 @@ export function initMotion(ctx: Ctx) {
       }
       c.classList.add('cn-up');
       // 설명 문구가 없는 카드는 타이핑 없이 확대만(확대 → 바로 축소)
-      const typeEnd = chars ? lead + chars * per : small ? 0 : P.zoomMs;
-      const hold = chars ? P.holdMs : 0;
+      const typeEnd = chars ? lead + chars * per : small ? 0 : P.expandMs;
+      const hold = !chars ? 0 : small ? P.small.holdMs : Math.min(P.holdMaxMs, P.holdMs + P.holdPerCharMs * Math.max(0, chars - 16));
       if (chars) later(() => c.classList.add('cn-typing'), lead);
       later(() => {
         c.classList.remove('cn-up', 'cn-typing'); // 축소되며 제자리로, 화살표가 켜진다
         c.classList.add('cn-done');
       }, typeEnd + hold);
-      later(() => step(i + 1), typeEnd + hold + (small ? P.small.gapMs : P.zoomMs));
+      later(() => step(i + 1), typeEnd + hold + (small ? P.small.gapMs : P.shrinkMs - P.overlapMs));
     };
     later(() => step(0), veil ? VEIL_MS : 0);
   }
