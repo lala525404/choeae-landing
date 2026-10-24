@@ -1,6 +1,7 @@
 import {createCtx} from './core';
 import {initDemo, initMap, initSys} from './extras';
 import {initIntro} from './intro';
+import {initMotion} from './motion';
 import {initNav} from './nav';
 import {initPointer} from './pointer';
 import {initWindows} from './windows';
@@ -19,6 +20,7 @@ export function initLanding(): () => void {
   initSys(ctx);
   const intro = initIntro(ctx);
   const nav = initNav(ctx);
+  initMotion(ctx);
   nav.boot(intro);
   return () => {
     abort.abort();

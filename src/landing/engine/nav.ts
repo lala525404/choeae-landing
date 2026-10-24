@@ -123,6 +123,7 @@ export function initNav(ctx: Ctx) {
         sec.classList.remove('entering');
         delete running[id];
         played.add(id);
+        sec.dispatchEvent(new Event('cat:ready')); // 진입 연출이 끝났다: 창 안 등장 모션(motion.ts)이 이어서 시작한다
       },
     };
     running[id] = s;

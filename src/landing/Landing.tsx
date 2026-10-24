@@ -34,6 +34,9 @@ export function Landing() {
         건너뛰기 · Esc
       </button>
       <main>
+        <button id="cn-skip" type="button" hidden>
+          건너뛰기
+        </button>
         <Intro />
         <Hero />
         <IndexMap />
