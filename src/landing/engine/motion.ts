@@ -6,24 +6,34 @@
 import {$, $$, type Ctx} from './core';
 
 /** 시간은 모두 ms. 쿼리 ?slow=4 는 ctx.ms와 CSS(--cn-k) 양쪽에서 같은 배율로 느려진다 */
-const CARDS = {
+interface CardsProfile {
   /** 카드 한 장의 타이핑 목표 시간. 글자당 지연은 이 값을 글자 수로 나눠 [minChar, maxChar]로 자른다 */
-  typeMs: 1200,
-  minChar: 18,
-  maxChar: 70,
-  /** 확대·축소 이동 시간(CSS --cn-zoom과 같아야 한다) */
-  zoomMs: 350,
+  typeMs: number;
+  minChar: number;
+  maxChar: number;
+  /** 확대·축소 이동 시간(--cn-zoom으로 CSS에 넘긴다) */
+  zoomMs: number;
   /** 확대가 시작되고 타이핑이 시작되기까지 */
-  typeLead: 150,
+  typeLead: number;
   /** 타이핑이 끝난 뒤 유지 */
-  holdMs: 400,
-  /** 첫 카드 전 배경 막이 깔리는 시간, 마지막 카드 뒤 막이 걷히는 시간(CSS --cn-veil과 같아야 한다) */
-  veilMs: 250,
-  scale: 1.35,
+  holdMs: number;
+  scale: number;
+  /** 확대한 카드를 창 안쪽으로 보정할지(false면 화면 가운데로) */
+  inWin: boolean;
+  /** 좁은 화면(확대 없이 하이라이트 + 타이핑): 타이핑 시간, 시작 지연, 다음 카드까지 간격 */
+  small: {typeMs: number; typeLead: number; gapMs: number};
+}
+const PROFILES: Record<'steps' | 'grid', CardsProfile> = {
+  /** "처음이신가요?" 3장: 카드당 약 2.1초 */
+  steps: {typeMs: 1200, minChar: 18, maxChar: 70, zoomMs: 350, typeLead: 150, holdMs: 400, scale: 1.35, inWin: false, small: {typeMs: 1200, typeLead: 150, gapMs: 80}},
+  /** "기능" 8장: 카드당 약 0.9초(전체 약 7.7초). 좁은 화면은 카드당 0.7초 */
+  grid: {typeMs: 500, minChar: 6, maxChar: 40, zoomMs: 250, typeLead: 50, holdMs: 100, scale: 1.25, inWin: true, small: {typeMs: 450, typeLead: 0, gapMs: 150}},
 };
+/** 첫 카드 전 배경 막이 깔리는 시간, 마지막 카드 뒤 막이 걷히는 시간(CSS --cn-veil과 같아야 한다) */
+const VEIL_MS = 250;
+/** 확대된 카드와 창 가장자리 사이 여백(px) */
+const EDGE = 8;
 const STACK = {stepMs: 105, popMs: 420};
-/** 기능 격자: 80ms 간격, 한 장 0.4초(CSS rise-in과 같아야 한다). 8장이면 (7×80+400)ms = 960ms로 1초 안에 끝난다 */
-const RISE = {stepMs: 80, popMs: 400};
 
 const SEEN = 'choeae-motion:';
 const memSeen = new Set<string>();
@@ -81,7 +91,8 @@ export function initMotion(ctx: Ctx) {
     const ids: number[] = [];
     const later = (fn: () => void, ms: number) => ids.push(ctx.timeout(fn, ctx.ms(ms)));
     const cards = $$('[data-cn-card]', win);
-    const veil = kind === 'cards' && !ctx.mobile() ? veilOf(sec) : null;
+    const P = kind === 'grid' ? PROFILES.grid : PROFILES.steps;
+    const veil = (kind === 'cards' || kind === 'grid') && !ctx.mobile() ? veilOf(sec) : null;
     const small = ctx.mobile();
     let over = false;
 
@@ -89,7 +100,9 @@ export function initMotion(ctx: Ctx) {
       if (over) return;
       over = true;
       ids.forEach(clearTimeout);
-      win.classList.remove('cn-on', 'cn-lift', 'cn-sm', 'st-on', 'rise-on');
+      win.classList.remove('cn-on', 'cn-lift', 'cn-sm', 'st-on');
+      win.style.removeProperty('--cn-zoom');
+      win.style.removeProperty('--cn-s');
       cards.forEach((c) => {
         c.classList.remove('cn-up', 'cn-typing', 'cn-done');
         c.style.removeProperty('--cn-x');
@@ -100,7 +113,7 @@ export function initMotion(ctx: Ctx) {
         veil.classList.remove('on');
         ctx.timeout(() => {
           if (!cur) veil.hidden = true;
-        }, ctx.ms(CARDS.veilMs));
+        }, ctx.ms(VEIL_MS));
       }
       skipBtn.hidden = true;
       replays.forEach((b) => (b.disabled = false));
@@ -115,14 +128,10 @@ export function initMotion(ctx: Ctx) {
       later(finish, n * STACK.stepMs + STACK.popMs + 60);
       return;
     }
-    if (kind === 'rise') {
-      const n = $$('[data-rise]', win).length;
-      win.classList.add('rise-on');
-      later(finish, (n - 1) * RISE.stepMs + RISE.popMs + 40);
-      return;
-    }
 
     skipBtn.hidden = false;
+    win.style.setProperty('--cn-zoom', P.zoomMs + 'ms');
+    win.style.setProperty('--cn-s', String(P.scale));
     win.classList.add('cn-on', 'cn-lift');
     if (small) win.classList.add('cn-sm'); // 좁은 화면: 확대 없이 해당 카드 하이라이트 + 타이핑
     if (veil) {
@@ -133,28 +142,43 @@ export function initMotion(ctx: Ctx) {
     const step = (i: number) => {
       if (i >= cards.length) {
         later(() => veil?.classList.remove('on'), 0);
-        later(finish, veil ? CARDS.veilMs : 0);
+        later(finish, veil ? VEIL_MS : 0);
         return;
       }
       const c = cards[i];
-      const n = Math.max(1, [...(c.querySelector('p')?.textContent ?? '')].length);
-      const per = Math.min(CARDS.maxChar, Math.max(CARDS.minChar, CARDS.typeMs / n));
+      const text = c.querySelector('p')?.textContent ?? '';
+      const chars = [...text].length;
+      const lead = small ? P.small.typeLead : P.typeLead;
+      const per = Math.min(P.maxChar, Math.max(P.minChar, (small ? P.small.typeMs : P.typeMs) / Math.max(1, chars)));
       c.style.setProperty('--cd', per + 'ms');
       if (!small) {
         const r = c.getBoundingClientRect();
-        c.style.setProperty('--cn-x', Math.round(innerWidth / 2 - (r.left + r.width / 2)) + 'px');
-        c.style.setProperty('--cn-y', Math.round(innerHeight / 2 - (r.top + r.height / 2)) + 'px');
+        let cx = innerWidth / 2;
+        let cy = innerHeight / 2;
+        if (P.inWin) {
+          // 창 안쪽(화면과 겹치는 부분)의 가운데로 가되, 확대된 카드가 창 가장자리 밖으로(옆 패널 위로) 나가지 않게 가운데를 보정한다
+          const w = win.getBoundingClientRect();
+          const b = {l: Math.max(w.left, 0) + EDGE, r: Math.min(w.right, innerWidth) - EDGE, t: Math.max(w.top + 42, 0) + EDGE, b: Math.min(w.bottom, innerHeight) - EDGE};
+          const hw = (r.width * P.scale) / 2;
+          const hh = (r.height * P.scale) / 2;
+          cx = b.l + hw > b.r - hw ? (b.l + b.r) / 2 : Math.min(Math.max((b.l + b.r) / 2, b.l + hw), b.r - hw);
+          cy = b.t + hh > b.b - hh ? (b.t + b.b) / 2 : Math.min(Math.max((b.t + b.b) / 2, b.t + hh), b.b - hh);
+        }
+        c.style.setProperty('--cn-x', Math.round(cx - (r.left + r.width / 2)) + 'px');
+        c.style.setProperty('--cn-y', Math.round(cy - (r.top + r.height / 2)) + 'px');
       }
       c.classList.add('cn-up');
-      const typeEnd = CARDS.typeLead + n * per;
-      later(() => c.classList.add('cn-typing'), CARDS.typeLead);
+      // 설명 문구가 없는 카드는 타이핑 없이 확대만(확대 → 바로 축소)
+      const typeEnd = chars ? lead + chars * per : small ? 0 : P.zoomMs;
+      const hold = chars ? P.holdMs : 0;
+      if (chars) later(() => c.classList.add('cn-typing'), lead);
       later(() => {
         c.classList.remove('cn-up', 'cn-typing'); // 축소되며 제자리로, 화살표가 켜진다
         c.classList.add('cn-done');
-      }, typeEnd + CARDS.holdMs);
-      later(() => step(i + 1), typeEnd + CARDS.holdMs + (small ? 80 : CARDS.zoomMs));
+      }, typeEnd + hold);
+      later(() => step(i + 1), typeEnd + hold + (small ? P.small.gapMs : P.zoomMs));
     };
-    later(() => step(0), veil ? CARDS.veilMs : 0);
+    later(() => step(0), veil ? VEIL_MS : 0);
   }
 
   /* ── 건너뛰기: 재생 중 아무 곳이나 클릭하거나 Esc·Enter·Space ── */

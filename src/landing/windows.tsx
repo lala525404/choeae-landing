@@ -33,8 +33,8 @@ export interface WinDef {
   /** 창 본문의 최대 높이(없으면 화면 높이에 맞춰 줄어든다) */
   mh?: string;
   collapsed?: boolean;
-  /** 등장 모션 종류: 카드뉴스식(cards), 위에서 쌓이는 항목(stack), 아래에서 차례로 올라오는 격자(rise). 제목줄에 "다시 보기" 버튼이 붙는다 */
-  motion?: 'cards' | 'stack' | 'rise';
+  /** 등장 모션 종류: 카드뉴스식 3장(cards)·8장 격자(grid, 같은 로직에 빠른 속도), 위에서 쌓이는 항목(stack). 제목줄에 "다시 보기" 버튼이 붙는다 */
+  motion?: 'cards' | 'grid' | 'stack';
   body: ReactNode;
 }
 
@@ -189,11 +189,13 @@ function PhotoTips() {
 function FeatureCards() {
   return (
     <div className="fgrid">
-      {FEATURE_CARDS.map((c, i) => (
-        <div className="fc hold" tabIndex={0} key={c.title} data-rise style={cv({'--k': i})}>
+      {FEATURE_CARDS.map((c) => (
+        <div className="fc hold" tabIndex={0} key={c.title} data-cn-card>
           {c.scene}
           <h4>{c.title}</h4>
-          <p>{c.line}</p>
+          <p>
+            <Typed text={c.line} />
+          </p>
         </div>
       ))}
     </div>
@@ -623,7 +625,7 @@ export const WINDOWS: WinDef[] = [
       </>
     ),
   },
-  {id: 'w-cards', sec: 'features', col: 0, title: '이렇게 움직여요', motion: 'rise', body: <FeatureCards />},
+  {id: 'w-cards', sec: 'features', col: 0, title: '이렇게 움직여요', motion: 'grid', body: <FeatureCards />},
   {id: 'w-shots', sec: 'features', col: 1, title: '실제 앱 화면', body: <Shots />},
   {id: 'w-more', sec: 'features', col: 1, title: '기능 자세히 보기', collapsed: true, mh: '220px', body: featureMore},
   {id: 'w-os', sec: 'download', col: 0, title: '내 컴퓨터에 맞는 파일', body: <OsWindow />},

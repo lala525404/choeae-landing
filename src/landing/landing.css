@@ -557,8 +557,8 @@ h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 #cn-skip { position: fixed; right: 16px; bottom: 16px; z-index: 100; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); font-size: 13px; font-weight: 600; box-shadow: var(--shadow); }
 .win.cn-lift { z-index: 60 !important; overflow: visible; }
 .win.cn-lift .body, .win.cn-lift .body > div { overflow: visible; }
-.cn-on [data-cn-card] { position: relative; opacity: .25; transform: scale(.94); transition: transform calc(.35s * var(--cn-k, 1)) var(--ease), opacity calc(.35s * var(--cn-k, 1)) var(--ease); will-change: transform, opacity; }
-.cn-on [data-cn-card].cn-up { z-index: 3; opacity: 1; transform: translate(var(--cn-x, 0), var(--cn-y, 0)) scale(1.35); }
+.cn-on [data-cn-card] { position: relative; opacity: .25; transform: scale(.94); transition: transform calc(var(--cn-zoom, 350ms) * var(--cn-k, 1)) var(--ease), opacity calc(var(--cn-zoom, 350ms) * var(--cn-k, 1)) var(--ease); will-change: transform, opacity; }
+.cn-on [data-cn-card].cn-up { z-index: 3; opacity: 1; transform: translate(var(--cn-x, 0), var(--cn-y, 0)) scale(var(--cn-s, 1.35)); }
 .cn-on [data-cn-card].cn-done { opacity: 1; transform: none; }
 .cn-sm [data-cn-card], .cn-sm [data-cn-card].cn-up, .cn-sm [data-cn-card].cn-done { transform: none; }
 .cn-on .sc:not(:last-child)::after { opacity: .2; transition: opacity calc(.3s * var(--cn-k, 1)) ease; }
@@ -569,7 +569,4 @@ h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 @keyframes cn-char { from { opacity: 0; } to { opacity: 1; } }
 /* 쌓이기: 위 16px에서 내려오며 나타나고, 3px 지나쳤다가 안착 */
 .st-on [data-st] { animation: st-in calc(.42s * var(--cn-k, 1)) ease-out backwards; animation-delay: calc(var(--k, 0) * 105ms * var(--cn-k, 1)); }
-/* 기능 격자: 아래 16px에서 올라오며 나타나고, 3px 지나쳤다가 안착. 순서는 --k(왼→오, 위→아래), 간격 80ms */
-.rise-on [data-rise] { animation: rise-in calc(.4s * var(--cn-k, 1)) ease-out backwards; animation-delay: calc(var(--k, 0) * 80ms * var(--cn-k, 1)); }
-@keyframes rise-in { 0% { opacity: 0; transform: translateY(16px); } 60% { opacity: 1; transform: translateY(-3px); } 100% { opacity: 1; transform: none; } }
 @keyframes st-in { 0% { opacity: 0; transform: translateY(-16px); } 60% { opacity: 1; transform: translateY(3px); } 100% { opacity: 1; transform: none; } }
