@@ -7,9 +7,6 @@ export const CONTACT_EMAIL = 'lala525.404@gmail.com';
 
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`[${PRODUCT_NAME}] 문의`)}`;
 
-/** macOS 1.7.1이 아직 없다는 안내. 맥 영역 한 곳에서만 쓴다. */
-const MAC_PENDING = 'macOS 1.7.1은 곧 올라와요';
-
 /** 다운로드 링크와 버전은 여기 한 곳에서만 고친다. 버튼 라벨의 버전 숫자도 여기서 나온다. */
 export const DOWNLOADS = {
   windows: {
@@ -23,13 +20,12 @@ export const DOWNLOADS = {
   },
   mac: {
     name: 'macOS',
-    version: '1.6.0',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.6.0/choeae-app-1.6.0-arm64.dmg',
+    version: '1.7.1',
+    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.7.1/choeae-app-1.7.1-arm64.dmg',
     ext: '.dmg',
-    // choeae-app-1.6.0-arm64.dmg는 100,955,858바이트
+    // choeae-app-1.7.1-arm64.dmg는 100,998,571바이트, SHA-256 5035488c1a0f423292a47c43ce9f13e8c6532d2ba0998a4e91acf02289c8bbe8
     size: '약 96MB',
-    // macOS 1.7.1 릴리스가 올라오면 이 안내와 MAC_PENDING를 같이 지운다.
-    note: `Apple Silicon(M1 이후) 전용 · ${MAC_PENDING}`,
+    note: 'Apple Silicon(M1 이후) 전용',
   },
 } satisfies Record<'windows' | 'mac', DownloadInfo>;
 
@@ -187,7 +183,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
         items: ['**초집중 모드 중 브리핑**: 초집중 모드 중에도 오늘 브리핑이 바로 보여요. 카드를 닫아도 초집중 모드는 그대로예요.'],
       },
     ],
-    note: 'Windows: choeae-app-Setup-1.7.1.exe (설치 파일)\nv1.7.0의 내용도 이 버전에 함께 들어 있어요.\nmacOS는 곧 올려요.',
+    note: 'Windows: choeae-app-Setup-1.7.1.exe (설치 파일)\nmacOS: choeae-app-1.7.1-arm64.dmg (Apple Silicon 전용)\nv1.7.0의 내용도 이 버전에 함께 들어 있어요.',
   },
   {
     version: 'v1.6.0',
