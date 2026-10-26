@@ -260,7 +260,8 @@ export function initMotion(ctx: Ctx) {
         if (ok) tryAuto(id);
         else if (!e.isIntersecting && cur?.sec === id) cur.finish();
       }),
-    {threshold: [0, 0.3, 0.6, 0.8, 1]},
+    /* 화면보다 훨씬 긴 카테고리(좁은 화면의 업데이트 내역)는 보이는 비율이 0.3에 못 미쳐서, 촘촘하게 둬야 "높이 60%" 판정이 다시 불린다 */
+    {threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.6, 0.8, 1]},
   );
   new Set(wins.map((w) => w.closest<HTMLElement>('.cat')!)).forEach((sec) => {
     io.observe(sec);
