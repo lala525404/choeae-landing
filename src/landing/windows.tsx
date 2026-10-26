@@ -19,7 +19,7 @@ import {
 import {usePlatform} from '../hooks/usePlatform';
 import {RichText} from '../lib/RichText';
 import type {FAQItem, InstallStep, Platform, ReleaseNote} from '../types';
-import {FEATURE_CARDS, Icon, SceneInstall, ScenePick, SceneRun, SceneTray, cv, type IconName} from './parts';
+import {FEATURE_CARDS, Icon, SceneInstall, ScenePick, SceneRun, SceneTray, Typed, cv, type IconName} from './parts';
 
 declare const __PRIVACY_DATE__: string;
 
@@ -33,6 +33,8 @@ export interface WinDef {
   /** 창 본문의 최대 높이(없으면 화면 높이에 맞춰 줄어든다) */
   mh?: string;
   collapsed?: boolean;
+  /** 등장 모션 종류: 카드뉴스식 3장(cards)·8장 격자(grid, 같은 로직에 빠른 속도), 위에서 쌓이는 항목(stack). 제목줄에 "다시 보기" 버튼이 붙는다 */
+  motion?: 'cards' | 'grid' | 'stack';
   body: ReactNode;
 }
 
@@ -99,29 +101,35 @@ function StartSteps() {
   return (
     <>
       <ol className="steps3">
-        <li className="sc">
+        <li className="sc" data-cn-card>
           <div className="sh">
             <span className="n">1</span>
             <h4>설치</h4>
           </div>
           <SceneInstall file={fileName('windows')} />
-          <p>받은 설치 파일을 실행해요. 설치되고 바로 켜져요.</p>
+          <p>
+            <Typed text="받은 설치 파일을 실행해요. 설치되고 바로 켜져요." />
+          </p>
         </li>
-        <li className="sc">
+        <li className="sc" data-cn-card>
           <div className="sh">
             <span className="n">2</span>
             <h4>버디 고르기</h4>
           </div>
           <ScenePick />
-          <p>설정창에서 동물 8종 중에 고르거나 내 사진을 올려요.</p>
+          <p>
+            <Typed text="설정창에서 동물 8종 중에 고르거나 내 사진을 올려요." />
+          </p>
         </li>
-        <li className="sc">
+        <li className="sc" data-cn-card>
           <div className="sh">
             <span className="n">3</span>
             <h4>풀어놓기</h4>
           </div>
           <SceneRun />
-          <p>버디가 화면 위를 돌아다니고 한마디씩 해요.</p>
+          <p>
+            <Typed text="버디가 화면 위를 돌아다니고 한마디씩 해요." />
+          </p>
         </li>
       </ol>
       <p className="sub" style={{marginTop: 12}}>
@@ -182,10 +190,12 @@ function FeatureCards() {
   return (
     <div className="fgrid">
       {FEATURE_CARDS.map((c) => (
-        <div className="fc hold" tabIndex={0} key={c.title}>
+        <div className="fc hold" tabIndex={0} key={c.title} data-cn-card>
           {c.scene}
           <h4>{c.title}</h4>
-          <p>{c.line}</p>
+          <p>
+            <Typed text={c.line} />
+          </p>
         </div>
       ))}
     </div>
@@ -339,13 +349,16 @@ type Kind = 'sparkles' | 'arrowup' | 'wrench';
 const kindOf = (label?: string): Kind => (/새로/.test(label ?? '') ? 'sparkles' : /좋아/.test(label ?? '') ? 'arrowup' : 'wrench');
 const KIND_LABEL: Record<Kind, string> = {sparkles: '새로 생겼어요', arrowup: '좋아졌어요', wrench: '고쳤어요'};
 
-function Release({note, open}: {note: ReleaseNote; open: boolean}) {
+/** 쌓이는 등장 모션의 순번: 처음 8개만 시차를 두고, 나머지는 한꺼번에(9번째 자리) 나타난다 */
+const stackK = (i: number) => cv({'--k': Math.min(i, 8)});
+
+function Release({note, open, k}: {note: ReleaseNote; open: boolean; k: number}) {
   const count: Record<Kind, number> = {sparkles: 0, arrowup: 0, wrench: 0};
   note.groups.forEach((g) => {
     count[kindOf(g.label)] += g.items.length;
   });
   return (
-    <details className={`tv${note.latest ? ' latest' : ''}`} open={open}>
+    <details className={`tv${note.latest ? ' latest' : ''}`} open={open} data-st style={stackK(k)}>
       <summary>
         <b>{note.version}</b>
         <span className="d">{note.date ?? ''}</span>
@@ -385,7 +398,7 @@ function Timeline() {
   return (
     <div className="tlv">
       {RELEASE_NOTES.map((n, i) => (
-        <Release key={n.version} note={n} open={i === 0} />
+        <Release key={n.version} note={n} open={i === 0} k={i} />
       ))}
     </div>
   );
@@ -427,10 +440,10 @@ const FAQ_ICONS: [RegExp, IconName][] = [
 ];
 const faqIcon = (q: string): IconName => FAQ_ICONS.find(([r]) => r.test(q))?.[1] ?? 'help';
 
-function FaqRich({item, open}: {item: FAQItem; open: boolean}) {
+function FaqRich({item, open, k}: {item: FAQItem; open: boolean; k: number}) {
   const q = item.question;
   return (
-    <details className="fq" open={open}>
+    <details className="fq" open={open} data-st style={stackK(k)}>
       <summary>
         <span className="fi">
           <Icon n={faqIcon(q)} />
@@ -464,7 +477,7 @@ function FaqList() {
   return (
     <>
       {FAQ_ITEMS.filter((i) => !isContact(i)).map((i, k) => (
-        <FaqRich key={i.question} item={i} open={k === 0} />
+        <FaqRich key={i.question} item={i} open={k === 0} k={k} />
       ))}
     </>
   );
@@ -597,7 +610,7 @@ const featureMore = (
 );
 
 export const WINDOWS: WinDef[] = [
-  {id: 'w-steps', sec: 'start', col: 0, title: '3단계로 시작해요', body: <StartSteps />},
+  {id: 'w-steps', sec: 'start', col: 0, title: '3단계로 시작해요', motion: 'cards', body: <StartSteps />},
   {id: 'w-detail', sec: 'start', col: 0, title: '설치 자세히 (Windows / macOS)', collapsed: true, mh: '220px', body: <StartDetail />},
   {id: 'w-tips', sec: 'start', col: 1, title: '사진 준비 팁', body: <PhotoTips />},
   {
@@ -612,7 +625,7 @@ export const WINDOWS: WinDef[] = [
       </>
     ),
   },
-  {id: 'w-cards', sec: 'features', col: 0, title: '이렇게 움직여요', body: <FeatureCards />},
+  {id: 'w-cards', sec: 'features', col: 0, title: '이렇게 움직여요', motion: 'grid', body: <FeatureCards />},
   {id: 'w-shots', sec: 'features', col: 1, title: '실제 앱 화면', body: <Shots />},
   {id: 'w-more', sec: 'features', col: 1, title: '기능 자세히 보기', collapsed: true, mh: '220px', body: featureMore},
   {id: 'w-os', sec: 'download', col: 0, title: '내 컴퓨터에 맞는 파일', body: <OsWindow />},
@@ -630,16 +643,16 @@ export const WINDOWS: WinDef[] = [
       </>
     ),
   },
-  {id: 'w-tl', sec: 'updates', col: 0, title: '업데이트 내역', body: <Timeline />},
+  {id: 'w-tl', sec: 'updates', col: 0, title: '업데이트 내역', motion: 'stack', body: <Timeline />},
   {id: 'w-legend', sec: 'updates', col: 1, title: '변화 종류', body: <Legend />},
-  {id: 'w-faq', sec: 'faq', col: 0, title: '자주 묻는 질문', body: <FaqList />},
+  {id: 'w-faq', sec: 'faq', col: 0, title: '자주 묻는 질문', motion: 'stack', body: <FaqList />},
   {id: 'w-contact', sec: 'faq', col: 1, title: '문의하기', body: <Contact />},
   {id: 'w-pv', sec: 'privacy', col: 0, title: '수집하는 것과 안 하는 것', body: <Privacy />},
   {id: 'w-links', sec: 'privacy', col: 1, title: '더 알아보기', body: <MoreLinks />},
 ];
 
 export function Win({def}: {def: WinDef}) {
-  const {id, title, collapsed, mh, body} = def;
+  const {id, title, collapsed, mh, motion, body} = def;
   return (
     <section
       className="win"
@@ -648,10 +661,20 @@ export function Win({def}: {def: WinDef}) {
       style={mh ? cv({'--mh': mh}) : undefined}
       {...(collapsed ? {'data-collapsed': ''} : {})}
       data-start-collapsed={collapsed ? '' : undefined}
+      data-motion={motion}
     >
       <div className="tb" tabIndex={0} aria-label={`${title} 창 제목줄. Alt+방향키로 이동`}>
         <span className="grip" aria-hidden="true" />
         <h3 id={`${id}-h`}>{title}</h3>
+        {motion && (
+          // 처음에는 숨겨 두고, 움직임을 쓸 수 있을 때만 엔진이 보여 준다(JS가 없으면 눌러도 소용없는 버튼을 두지 않는다)
+          <button className="ib" type="button" data-act="replay" aria-label="등장 모션 다시 보기" title="다시 보기" hidden>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          </button>
+        )}
         <button
           className="ib"
           type="button"

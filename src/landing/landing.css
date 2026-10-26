@@ -546,3 +546,30 @@ html[data-zone=intro] #hero { content-visibility: hidden; }
 h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 /* 터치 기기: 커서가 없어서 따라다니는 펫은 쓰지 않는다(본문을 가리지 않게) */
 @media (hover: none), (pointer: coarse) { #pet, #tPet { display: none; } }
+
+/* ── 창 안 등장 모션 (engine/motion.ts). 아래 규칙은 클래스가 붙은 동안만 적용되고, 클래스가 없는 상태가 최종 레이아웃이다.
+      transform/opacity만 움직인다. --cn-k 는 ?slow= 배율 ── */
+.ib[hidden], #cn-ctl[hidden], .cn-veil[hidden] { display: none; }
+.ib[data-act=replay]:disabled { opacity: .35; cursor: default; }
+.ib[data-act=replay]:disabled:hover { background: transparent; }
+.cn-veil { position: absolute; inset: 0; z-index: 40; background: rgba(0, 0, 0, .3); opacity: 0; transition: opacity calc(.25s * var(--cn-k, 1)) ease; }
+.cn-veil.on { opacity: 1; }
+/* 재생이 길어서(기능 약 16초) 건너뛰기는 채운 알약으로 눈에 띄게, 몇 번째 카드인지는 그 옆에 */
+#cn-ctl { position: fixed; right: 16px; bottom: 16px; z-index: 100; display: flex; align-items: center; gap: 8px; }
+#cn-count { min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; font-variant-numeric: tabular-nums; box-shadow: var(--shadow); }
+#cn-skip { min-height: 38px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--win); font-size: 14px; font-weight: 700; box-shadow: var(--shadow); }
+.win.cn-lift { z-index: 60 !important; overflow: visible; }
+.win.cn-lift .body, .win.cn-lift .body > div { overflow: visible; }
+.cn-on [data-cn-card] { position: relative; opacity: .25; transform: scale(.94); transition: transform calc(var(--cn-out, 350ms) * var(--cn-k, 1)) var(--ease), opacity calc(var(--cn-out, 350ms) * var(--cn-k, 1)) var(--ease); will-change: transform, opacity; }
+.cn-on [data-cn-card].cn-up { transition-duration: calc(var(--cn-in, 350ms) * var(--cn-k, 1)); z-index: 3; opacity: 1; transform: translate(var(--cn-x, 0), var(--cn-y, 0)) scale(var(--cn-s, 1.35)); }
+.cn-on [data-cn-card].cn-done { opacity: 1; transform: none; }
+.cn-sm [data-cn-card], .cn-sm [data-cn-card].cn-up, .cn-sm [data-cn-card].cn-done { transform: none; }
+.cn-on .sc:not(:last-child)::after { opacity: .2; transition: opacity calc(.3s * var(--cn-k, 1)) ease; }
+.cn-on .sc.cn-done:not(:last-child)::after { opacity: 1; }
+/* 타이핑: 차례가 오기 전에는 숨김, 차례에는 글자마다 지연을 두고 켜짐, 끝난 뒤에는 그대로 보임 */
+.cn-on [data-cn-card]:not(.cn-typing):not(.cn-done) .tyc { opacity: 0; }
+.cn-on .cn-typing .tyc { animation: cn-char 1ms linear backwards; animation-delay: calc(var(--i) * var(--cd, 40ms) * var(--cn-k, 1)); }
+@keyframes cn-char { from { opacity: 0; } to { opacity: 1; } }
+/* 쌓이기: 위 16px에서 내려오며 나타나고, 3px 지나쳤다가 안착 */
+.st-on [data-st] { animation: st-in calc(.42s * var(--cn-k, 1)) ease-out backwards; animation-delay: calc(var(--k, 0) * 105ms * var(--cn-k, 1)); }
+@keyframes st-in { 0% { opacity: 0; transform: translateY(-16px); } 60% { opacity: 1; transform: translateY(3px); } 100% { opacity: 1; transform: none; } }

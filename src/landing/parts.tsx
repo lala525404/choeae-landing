@@ -4,6 +4,23 @@ import {BUDDIES, LEAVE_EMOJI_CODES, twemojiSrc} from '../constants';
 /** CSS 변수(--i 같은 값)를 style에 넘길 때 쓴다 */
 export const cv = (vars: Record<string, string | number>) => vars as unknown as CSSProperties;
 
+/** 등장 모션용 문구: 전체 문구가 처음부터 DOM에 있고(읽히고 검색됨), 글자마다 --i만 붙는다. 드러내는 건 landing.css의 .tyc 규칙이 한다. */
+export function Typed({text}: {text: string}) {
+  return (
+    <>
+      {[...text].map((c, i) =>
+        c === ' ' ? (
+          ' '
+        ) : (
+          <span className="tyc" key={i} style={cv({'--i': i})}>
+            {c}
+          </span>
+        ),
+      )}
+    </>
+  );
+}
+
 export const HEART_PATH =
   'M50 90 C47 90 44 88 41 86 C22 72 6 56 6 34 C6 18 18 8 31 8 C40 8 47 13 50 20 C53 13 60 8 69 8 C82 8 94 18 94 34 C94 56 78 72 59 86 C56 88 53 90 50 90 Z';
 
