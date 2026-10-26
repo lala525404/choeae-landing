@@ -271,7 +271,7 @@ export const FEATURE_CARDS: {title: string; line: string; scene: ReactNode}[] = 
   },
   {
     title: '말풍선 시계',
-    line: '시간대에 맞춰 한마디씩 해요.',
+    line: '시간대에 맞춰 한마디씩 하고, 부팅하면 오늘 브리핑도 보여줘요.',
     scene: (
       <Scn label="시간대에 맞춰 말풍선 문구가 바뀌는 모습">
         <div className="f2c">
@@ -294,7 +294,7 @@ export const FEATURE_CARDS: {title: string; line: string; scene: ReactNode}[] = 
   },
   {
     title: '점심·퇴근 알림',
-    line: '정한 시각에 카드와 이모지가 떠요.',
+    line: '정한 시각에 카드와 이모지가 떠요. "10분 뒤 알람"도 말로 맞춰요.',
     scene: (
       <Scn label="퇴근 시각에 알림 카드와 이모지가 올라오는 모습">
         <div className="f3c">
