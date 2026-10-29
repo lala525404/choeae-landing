@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {DOWNLOADS} from '../src/constants';
+import {DOWNLOADS, DOWNLOADS_PAUSED, DOWNLOADS_PAUSED_NOTE} from '../src/constants';
 import {loadEnv, type Plugin, type ResolvedConfig} from 'vite';
 
 /**
@@ -48,11 +48,13 @@ export function applySiteUrl(html: string, siteUrl: string): string {
 
 /** noscript 요약 안의 다운로드 주소·버전도 src/constants.ts의 DOWNLOADS 한 곳에서 가져온다. */
 function applyDownloads(html: string): string {
-  return html
-    .split('%DL_WINDOWS_URL%').join(DOWNLOADS.windows.url)
-    .split('%DL_WINDOWS_VERSION%').join(DOWNLOADS.windows.version)
-    .split('%DL_MAC_URL%').join(DOWNLOADS.mac.url)
-    .split('%DL_MAC_VERSION%').join(DOWNLOADS.mac.version);
+  const list = DOWNLOADS_PAUSED
+    ? `<p>${DOWNLOADS_PAUSED_NOTE}</p>`
+    : `<ul>
+          <li><a href="${DOWNLOADS.windows.url}">Windows용 다운로드 v${DOWNLOADS.windows.version}</a></li>
+          <li><a href="${DOWNLOADS.mac.url}">macOS용 다운로드 v${DOWNLOADS.mac.version}</a> (Apple Silicon(M1 이후) 전용)</li>
+        </ul>`;
+  return html.split('%DL_LIST%').join(list);
 }
 
 export function siteUrlPlugin(): Plugin {

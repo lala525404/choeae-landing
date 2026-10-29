@@ -6,7 +6,10 @@ export interface DownloadInfo {
   /** 버튼 라벨에 쓰는 OS 이름 */
   name: string;
   version: string;
+  /** 다운로드 주소. DOWNLOADS_PAUSED가 켜져 있으면 빈 문자열이라 어디에도 렌더되지 않는다 */
   url: string;
+  /** 받는 파일 이름(주소의 마지막 조각). 설치 안내 그림에 쓰므로 주소와 따로 둔다 */
+  file: string;
   /** 받는 파일 형식 (카드에 표시) */
   ext: string;
   /** 파일 크기 표기(대략). 새 버전을 올리면 GitHub 릴리스의 파일 크기를 보고 같이 고친다 */

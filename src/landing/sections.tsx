@@ -1,4 +1,4 @@
-import {DOWNLOADS, LATEST_RELEASE, PRODUCT_NAME} from '../constants';
+import {DOWNLOADS, DOWNLOADS_PAUSED, LATEST_RELEASE, PRODUCT_NAME} from '../constants';
 import {usePlatform} from '../hooks/usePlatform';
 import {HEART_PATH, HeartMini, cv} from './parts';
 import {ctaSub} from './intro';
@@ -130,10 +130,17 @@ export function Hero() {
         </h2>
         <p className="lead">좋아하는 사진이 버디가 되어 내 화면 위를 돌아다녀요. 점심·퇴근 시간엔 알림도 챙겨 줘요.</p>
         <div className="cta">
-          <a className="btn main" href="#download" data-instant data-look data-avoid data-fx>
-            <span>바로 다운받기</span>
-            <small>{ctaSub(platform)}</small>
-          </a>
+          {DOWNLOADS_PAUSED ? (
+            <span className="btn main off" role="note">
+              <span>다운로드 잠시 멈춤</span>
+              <small>곧 다시 열게요</small>
+            </span>
+          ) : (
+            <a className="btn main" href="#download" data-instant data-look data-avoid data-fx>
+              <span>바로 다운받기</span>
+              <small>{ctaSub(platform)}</small>
+            </a>
+          )}
           <a className="btn" href="#start" data-look data-fx>
             3단계 사용법 보기
           </a>
@@ -212,7 +219,7 @@ export function IndexMap() {
   const desc: Record<CatId, string> = {
     start: '3단계로 시작해요',
     features: '사진 버디 · 말풍선 · 알림',
-    download: `Windows v${windows.version} · macOS v${mac.version}`,
+    download: DOWNLOADS_PAUSED ? '지금은 잠시 멈췄어요' : `Windows v${windows.version} · macOS v${mac.version}`,
     updates: latest ? `${latest.version}이 최신이에요` : '지금까지 나온 버전',
     faq: '자주 묻는 질문',
     privacy: '무엇을 모으고 안 모으는지',

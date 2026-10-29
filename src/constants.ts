@@ -7,12 +7,21 @@ export const CONTACT_EMAIL = 'lala525.404@gmail.com';
 
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`[${PRODUCT_NAME}] 문의`)}`;
 
-/** 다운로드 링크와 버전은 여기 한 곳에서만 고친다. 버튼 라벨의 버전 숫자도 여기서 나온다. */
+/** 다운로드 일시 중지 스위치. true면 Windows·macOS 다운로드 버튼과 링크를 모두 끄고 안내 한 줄만 보여 준다. 되돌릴 때는 false로만 바꾼다. */
+export const DOWNLOADS_PAUSED = true;
+
+/** 사이트 점검 스위치. true면 전체 사이트 대신 점검 안내 한 화면만 보여 준다(vite-plugins/landing-shell.ts). 정적 페이지(faq·privacy 등)는 그대로 열린다. */
+export const SITE_MAINTENANCE = false;
+
+export const DOWNLOADS_PAUSED_NOTE = '지금은 다운로드를 잠시 멈췄어요. 곧 다시 열게요.';
+
+/** 다운로드 링크와 버전은 여기 한 곳에서만 고친다. 버튼 라벨의 버전 숫자도 여기서 나온다. 중지 중에는 주소를 비워 번들에도 남기지 않는다. */
 export const DOWNLOADS = {
   windows: {
     name: 'Windows',
     version: '1.7.1',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.7.1/choeae-app-Setup-1.7.1.exe',
+    url: DOWNLOADS_PAUSED ? '' : 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.7.1/choeae-app-Setup-1.7.1.exe',
+    file: 'choeae-app-Setup-1.7.1.exe',
     ext: '.exe',
     note: '설치 파일',
     // choeae-app-Setup-1.7.1.exe는 82,086,688바이트, SHA-256 c4cf8aec4fbbb5f9394ac89b72a3cba9aa57cd48fc39014412bc43428d66616e
@@ -21,7 +30,8 @@ export const DOWNLOADS = {
   mac: {
     name: 'macOS',
     version: '1.7.1',
-    url: 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.7.1/choeae-app-1.7.1-arm64.dmg',
+    url: DOWNLOADS_PAUSED ? '' : 'https://github.com/lala525404/nyang-pet-app/releases/download/v1.7.1/choeae-app-1.7.1-arm64.dmg',
+    file: 'choeae-app-1.7.1-arm64.dmg',
     ext: '.dmg',
     // choeae-app-1.7.1-arm64.dmg는 100,998,571바이트, SHA-256 5035488c1a0f423292a47c43ce9f13e8c6532d2ba0998a4e91acf02289c8bbe8
     size: '약 96MB',
@@ -36,7 +46,7 @@ export const downloadLabel = (os: DownloadOS) => `${DOWNLOADS[os].name}용 다�
 export const fileLinkLabel = (os: DownloadOS) => `${DOWNLOADS[os].name}용 파일 받기 v${DOWNLOADS[os].version}`;
 
 /** 다운로드 파일 이름 (주소의 마지막 조각) */
-export const fileName = (os: DownloadOS) => DOWNLOADS[os].url.split('/').pop() ?? '';
+export const fileName = (os: DownloadOS) => DOWNLOADS[os].file;
 
 /** 가장 최근 업데이트 기록 (latest: true) */
 export const LATEST_RELEASE = (): ReleaseNote | undefined => RELEASE_NOTES.find((note) => note.latest) ?? RELEASE_NOTES[0];

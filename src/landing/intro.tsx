@@ -1,4 +1,4 @@
-import {DOWNLOADS, PRODUCT_NAME} from '../constants';
+import {DOWNLOADS, DOWNLOADS_PAUSED, PRODUCT_NAME} from '../constants';
 import {usePlatform} from '../hooks/usePlatform';
 import type {Platform} from '../types';
 
@@ -32,10 +32,17 @@ export function Intro() {
           <a className="btn" id="go-first" href="#hero" data-look data-fx>
             처음이신가요?
           </a>
-          <a className="btn main" id="go-dl" href="#download" data-instant data-look data-avoid data-fx>
-            <span>바로 다운받기</span>
-            <small>{ctaSub(platform)}</small>
-          </a>
+          {DOWNLOADS_PAUSED ? (
+            <span className="btn main off" id="go-dl" role="note">
+              <span>다운로드 잠시 멈춤</span>
+              <small>곧 다시 열게요</small>
+            </span>
+          ) : (
+            <a className="btn main" id="go-dl" href="#download" data-instant data-look data-avoid data-fx>
+              <span>바로 다운받기</span>
+              <small>{ctaSub(platform)}</small>
+            </a>
+          )}
         </div>
         <p className="trust" id="itrust">
           <span>Windows · macOS(Apple Silicon)</span>

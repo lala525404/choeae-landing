@@ -3,6 +3,8 @@ import {
   AUTO_UPDATE_NOTICE,
   CONTACT_HREF,
   DOWNLOADS,
+  DOWNLOADS_PAUSED,
+  DOWNLOADS_PAUSED_NOTE,
   FAQ_ITEMS,
   FEATURE_LIST,
   PHOTO_TIPS,
@@ -48,7 +50,7 @@ const Steps = ({items}: {items: InstallStep[]}) => (
           <span className="sub">
             <RichText text={step.text} />
           </span>
-          {step.download && (
+          {step.download && !DOWNLOADS_PAUSED && (
             <a className="link-a" style={{display: 'inline-block', marginTop: 4, fontSize: 14}} href={DOWNLOADS[step.download].url} download>
               {fileLinkLabel(step.download)}
             </a>
@@ -247,19 +249,29 @@ function OsCard({os, primary}: {os: DownloadOS; primary: boolean}) {
       <div className="osh">
         <Icon n={os === 'windows' ? 'monitor' : 'laptop'} />
         <b>{d.name}</b>
-        <span className="chip ok">
-          <Icon n="check" />
-          받을 수 있어요
-        </span>
+        {DOWNLOADS_PAUSED ? (
+          <span className="chip">잠시 멈춤</span>
+        ) : (
+          <span className="chip ok">
+            <Icon n="check" />
+            받을 수 있어요
+          </span>
+        )}
       </div>
       <p className="ver">v{d.version}</p>
       <p className="sub">
         {d.ext} · {d.size}
         {note ? ` · ${note}` : ''}
       </p>
-      <a className={primary ? 'dl' : 'dl gray'} href={d.url} download data-avoid>
-        {downloadLabel(os)}
-      </a>
+      {DOWNLOADS_PAUSED ? (
+        <p className="dl gray off" role="note">
+          {DOWNLOADS_PAUSED_NOTE}
+        </p>
+      ) : (
+        <a className={primary ? 'dl' : 'dl gray'} href={d.url} download data-avoid>
+          {downloadLabel(os)}
+        </a>
+      )}
     </div>
   );
 }
